@@ -7,15 +7,6 @@ import java.util.Set;
 public class hashcode{
     public ArrayList<Photo> data;
     public ArrayList<Score> scores = new ArrayList<Score>();
-    public ArrayList<Score> result = new ArrayList<Score>();
-
-    private int max(int length, int length2) {
-        if(length > length2){
-            return length;
-        }else{
-            return length2;
-        }
-    }
 
     private int min(int commonTag, int missingTag1, int missingTag2) {
         if(commonTag <= missingTag1 && commonTag <= missingTag2){
@@ -58,7 +49,7 @@ public class hashcode{
         int missingTag2 = missingTag(photo2, photo1);
         int score = min(commonTag, missingTag1, missingTag2);
         if(score != 0){
-            scores.add(new Score(photo1, photo2, score));  
+            //scores.add(new Score(photo1, photo2, score));  
         }
         return score;
     }
@@ -134,73 +125,104 @@ public class hashcode{
     }
 
     public void createSlideShow(){
-        //sortScores();
-        result.add(scores.get(0));
-        scores.remove(0);
-        setUsedPhoto(result.get(0).getPhoto1());
-        setUsedPhoto(result.get(0).getPhoto2());
-
+        int random = (int) (Math.random() * this.data.size());
+        Photo photo = this.data.get(random);
+        setUsedPhoto(photo);
+        maxScore(photo);
+        setUsedPhoto(scores.get(scores.size()-1).getPhoto2());
         loopScore();
 
-        System.out.println("Size: " + result.size());
-        int score = 0;
-        for(Score s : result){
-            score += s.getScore();
-        }
-
-        System.out.println("Score: " + score);
-
         readFile rf = new readFile();
-        rf.writeFile(result);
+        rf.writeFile(scores);
 
     }
 
     public void loopScore(){
-        boolean isZero = false;
-        int[] max = new int[2];
-        while(!scores.isEmpty() && !isZero)
-        {
-            max = maxScore(result.get(result.size()-1).getPhoto1());
-            if(max[0] == 0){
-                isZero = true;
-            }else{
-                result.add(scores.get(max[1]));
-                scores.remove(max[1]);
-                setUsedPhoto(result.get(result.size()-1).getPhoto1());
-                setUsedPhoto(result.get(result.size()-1).getPhoto2());
+        boolean isNull = false;
+
+        while(!isNull){
+            Photo photo = scores.get(scores.size()-1).getPhoto2();
+            if(photo.getType().equals("C")){
+                isNull = maxScoreCombined(photo);
             }
+            else{isNull = maxScore(photo);}
+                
+            setUsedPhoto(photo);
         }
+
+        System.out.println("Size of the scores: " + scores.size() + "\n");
+        int total = 0;
+        for(Score r: this.scores){
+            total += r.getScore();
+        }
+        System.out.println("Total Score: " + total);
+
         
     }
 
-    public int[] maxScore(Photo photo){
+    public boolean maxScore(Photo photo){
         int max = 0;
-        int index = 0;
-        for(Score score : scores){
-            if(
-                (score.getPhoto1().getName().contains(photo.getName()) && !score.getPhoto2().getUsed()) ||
-                (score.getPhoto2().getName().contains(photo.getName()) && !score.getPhoto1().getUsed())
-            ){
-                if(score.getScore() > max){
-                    max = score.getScore();
-                    index = scores.indexOf(score);
+        Photo nextPhoto = null;
+        for(Photo p: this.data){
+            if(!p.getUsed() && !photo.getName().contains(p.getName())){
+                int score = scoring(photo, p);
+                if(nextPhoto == null){
+                    nextPhoto = p;
+                    max = score;
+                }
+                else if(score > max){
+                    max = score;
+                    nextPhoto = p;
                 }
             }
         }
-        int[] result = new int[2];
-        result[0] = max;
-        result[1] = index;
-        return result;
+        if(nextPhoto != null){
+            scores.add(new Score(photo, nextPhoto, max));
+            return false;
+        }
+        return true;
+
     }
 
-    public void sortScores(){
-        scores.sort((score1, score2) -> score2.getScore() - score1.getScore());
+    public boolean maxScoreCombined(Photo photo){
+        int max = 0;
+        String[] names = photo.getName().split(" ");
+        Photo nextPhoto = null;
+        for(Photo p: this.data){
+            if(!p.getUsed() && (!p.getName().contains(names[0]) && !p.getName().contains(names[1]))){
+                int score = scoring(photo, p);
+                if(nextPhoto == null){
+                    nextPhoto = p;
+                    max = score;
+                }
+                else if(score > max){
+                    max = score;
+                    nextPhoto = p;
+                }
+            }
+        }
+        if(nextPhoto != null){
+            scores.add(new Score(photo, nextPhoto, max));
+            return false;
+        }
+        return true;
+
     }
 
     public void setUsedPhoto(Photo photo){
-        for(Photo p : this.data){
-            if(p.getName().contains(photo.getName())){
-                p.setUsed(true);
+        if(photo.getType().equals("C")){
+            String[] names = photo.getName().split(" ");
+            for(Photo p : this.data){
+                if(p.getName().contains(names[0]) || p.getName().contains(names[1])){
+                    p.setUsed(true);
+                }
+            }
+        }
+        else{
+            for(Photo p : this.data){
+                if(p.getName().contains(photo.getName())){
+                    p.setUsed(true);
+                }
             }
         }
     }
@@ -213,16 +235,13 @@ public class hashcode{
 
         // String filePath = args[0];
 
-        hashcode m = new hashcode("a_example.txt");
+        //hashcode m = new hashcode("a_example.txt");
+        //hashcode m = new hashcode("c_memorable_moments.txt");
+        //hashcode m = new hashcode("c_reduce_set.txt");
+        hashcode m = new hashcode("b_lovely_landscapes.txt");
         m.combinedPhoto();
 
-        for (int i = 0; i < m.data.size(); i++) {
-            for (int j = i + 1; j < m.data.size(); j++) {
-                if (!m.isContained(m.data.get(i), m.data.get(j))) {
-                    m.scoring(m.data.get(i), m.data.get(j));
-                }
-            }
-        }
+        System.out.println("Size of the dataSet: " + m.data.size());
 
         m.createSlideShow();
         
