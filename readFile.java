@@ -2,6 +2,8 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 
 public class readFile {
 
@@ -38,6 +40,27 @@ public class readFile {
         }
 
         return result;
+    }
+
+    public void writeFile(ArrayList<Score> result){
+        try(BufferedWriter writer = new BufferedWriter(new FileWriter("output.txt"))){
+            writer.write(result.size() + 1  + "\n");
+            for(int i = 0 ; i < result.size() ; i++){
+                if(i == 0){
+                    writer.write(result.get(i).getPhoto2().getName() + "\n");
+                    writer.write(result.get(i).getPhoto1().getName() + "\n");
+                }
+                else{
+                    if(result.get(i).getPhoto1().getName().contains(result.get(i-1).getPhoto1().getName())){
+                        writer.write(result.get(i).getPhoto2().getName() + "\n");
+                    }else{
+                        writer.write(result.get(i).getPhoto1().getName() + "\n");
+                    }
+                }
+            }
+        }catch(IOException e){
+            e.printStackTrace();
+        }
     }
 
     public static void main(String[] args) {

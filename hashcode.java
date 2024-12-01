@@ -1,3 +1,4 @@
+import java.nio.Buffer;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -5,6 +6,8 @@ import java.util.Set;
 
 public class hashcode{
     public ArrayList<Photo> data;
+    public ArrayList<Score> scores = new ArrayList<Score>();
+    public ArrayList<Score> result = new ArrayList<Score>();
 
     private int max(int length, int length2) {
         if(length > length2){
@@ -24,6 +27,20 @@ public class hashcode{
         }
     }
 
+    public void printAllInfo(){
+        for(Photo photo : this.data){
+            System.out.println("Name: " + photo.getName());
+            System.out.println("Type: " + photo.getType());
+            System.out.print("Tags: ");
+            for(String tag : photo.getTags()){
+                System.out.print(tag + " ");
+            }
+            System.out.println();
+            System.out.println("Used: " + photo.getUsed());
+            System.out.println();
+        }
+    }
+
     public hashcode(String pathToFile){
 
         readFile rf = new readFile();
@@ -35,20 +52,14 @@ public class hashcode{
 
     public Integer scoring(Photo photo1, Photo photo2){
         int commonTag = commonTag(photo1, photo2);
+        if(commonTag == 0){ return 0;}
         int missingTag1 = missingTag(photo1, photo2);
+        if(missingTag1 == 0){return 0;}
         int missingTag2 = missingTag(photo2, photo1);
-
-        // System.out.println(photo1.getName() + " / " + photo2.getName());
-        // System.out.println("Common tags: " + commonTag);
-        // System.out.println("Missing tags 1: " + missingTag1);
-        // System.out.println("Missing tags 2: " + missingTag2);
-
         int score = min(commonTag, missingTag1, missingTag2);
-
-        // System.out.println("Score: " + score);
-
-
-
+        if(score != 0){
+            scores.add(new Score(photo1, photo2, score));  
+        }
         return score;
     }
 
@@ -56,53 +67,16 @@ public class hashcode{
         Set<String> tags1 = new HashSet<>(List.of(photo1.getTags()));
         Set<String> tags2 = new HashSet<>(List.of(photo2.getTags()));
         
-        tags1.retainAll(tags2); // Finds common elements
+        tags1.retainAll(tags2);
         return tags1.size();
-
-        // String tags1[] = photo1.getTags();
-        // String tags2[] = photo2.getTags();
-        // int common = 0;
-
-        // String[] commonTag = new String[max(tags1.length, tags2.length)];
-        // for(String tag1 : tags1){
-        //     for(String tag2 : tags2){
-        //         if(tag1.equals(tag2)){
-        //             commonTag[common] = tag1;
-        //             common++;
-        //         }
-        //     }
-        // }
-
-        // return common;
     }
         
     public int missingTag(Photo photo1, Photo photo2){
         Set<String> tags1 = new HashSet<>(List.of(photo1.getTags()));
         Set<String> tags2 = new HashSet<>(List.of(photo2.getTags()));
 
-        tags1.removeAll(tags2); // Removes all elements found in tags2 from tags1
+        tags1.removeAll(tags2);
         return tags1.size();
-
-        // int missing = 0;
-
-        // String tags1[] = photo1.getTags();
-        // String tags2[] = photo2.getTags();
-        // String[] missingTag = new String[max(tags1.length, tags2.length)];
-        // for(String tag1: tags1){
-        //     boolean found = false;
-        //     for(String tag2: tags2){
-        //         if(tag1.equals(tag2)){
-        //             found = true;
-        //             break;
-        //         }
-        //     }
-        //     if(!found){
-        //         missingTag[missing] = tag1;
-        //         missing++;
-        //     }
-        // }
-
-        // return missing;
     }
 
     public void combinedPhoto(){
@@ -150,77 +124,107 @@ public class hashcode{
 
 
     }
-
-    public void printAllInfo(){
-        for(Photo photo : this.data){
-            System.out.println("Name: " + photo.getName());
-            System.out.println("Type: " + photo.getType());
-            System.out.print("Tags: ");
-            for(String tag : photo.getTags()){
-                System.out.print(tag + " ");
-            }
-            System.out.println();
-            System.out.println("Used: " + photo.getUsed());
-            System.out.println();
-        }
-    }
-
+ 
     public boolean isContained(Photo photo1, Photo photo2){
         Set<String> names1 = new HashSet<>(List.of(photo1.getName().split(" ")));
         Set<String> names2 = new HashSet<>(List.of(photo2.getName().split(" ")));
         
-        names1.retainAll(names2); // Checks for intersection
+        names1.retainAll(names2);
         return !names1.isEmpty();
-        // Boolean isContained = false;
-        // String[] name1;
-        // String[] name2;
-        // if(photo1.getType().equals("C")){name1 = photo1.getName().split(" ");}
-        // else{
-        //     name1 = new String[1];
-        //     name1[0] = photo1.getName();
-        // }
-
-        // if(photo2.getType().equals("C")){name2 = photo2.getName().split(" ");}
-        // else{
-        //     name2 = new String[1];
-        //     name2[0] = photo2.getName();
-        // }
-
-        // for(String name : name1){
-        //     for(String name_ : name2){
-        //         if(name.equals(name_)){
-        //             isContained = true;
-        //             break;
-        //         }
-        //     }
-        // }
-
-        // System.out.println("Name1: " + photo1.getName());
-        // System.out.println("Name2: " + photo2.getName());
-        // System.out.println("Contained: " + isContained);
-        
-        // return isContained;
     }
+
+    public void createSlideShow(){
+        //sortScores();
+        result.add(scores.get(0));
+        scores.remove(0);
+        setUsedPhoto(result.get(0).getPhoto1());
+        setUsedPhoto(result.get(0).getPhoto2());
+
+        loopScore();
+
+        System.out.println("Size: " + result.size());
+        int score = 0;
+        for(Score s : result){
+            score += s.getScore();
+        }
+
+        System.out.println("Score: " + score);
+
+        readFile rf = new readFile();
+        rf.writeFile(result);
+
+    }
+
+    public void loopScore(){
+        boolean isZero = false;
+        int[] max = new int[2];
+        while(!scores.isEmpty() && !isZero)
+        {
+            max = maxScore(result.get(result.size()-1).getPhoto1());
+            if(max[0] == 0){
+                isZero = true;
+            }else{
+                result.add(scores.get(max[1]));
+                scores.remove(max[1]);
+                setUsedPhoto(result.get(result.size()-1).getPhoto1());
+                setUsedPhoto(result.get(result.size()-1).getPhoto2());
+            }
+        }
+        
+    }
+
+    public int[] maxScore(Photo photo){
+        int max = 0;
+        int index = 0;
+        for(Score score : scores){
+            if(
+                (score.getPhoto1().getName().contains(photo.getName()) && !score.getPhoto2().getUsed()) ||
+                (score.getPhoto2().getName().contains(photo.getName()) && !score.getPhoto1().getUsed())
+            ){
+                if(score.getScore() > max){
+                    max = score.getScore();
+                    index = scores.indexOf(score);
+                }
+            }
+        }
+        int[] result = new int[2];
+        result[0] = max;
+        result[1] = index;
+        return result;
+    }
+
+    public void sortScores(){
+        scores.sort((score1, score2) -> score2.getScore() - score1.getScore());
+    }
+
+    public void setUsedPhoto(Photo photo){
+        for(Photo p : this.data){
+            if(p.getName().contains(photo.getName())){
+                p.setUsed(true);
+            }
+        }
+    }
+
     public static void main(String[] args) {
-        hashcode m = new hashcode("c_memorable_moments.txt");
-        //m.combinedPhoto();
-        // m.printAllInfo();
-
-        // for(int i = 0; i < m.data.size(); i++){
-        //     for(int j = i+1; j < m.data.size(); j++){   
-        //         if(i != j && !m.isContained(m.data.get(i), m.data.get(j))){
-        //             System.out.println("Score: " + m.scoring(m.data.get(i), m.data.get(j))+ "\n");
-        //         }
-        //     }
+        // if(args.length == 0){
+        //     System.out.println("Please provide the file path");
+        //     return;
         // }
-        m.data.parallelStream()
-        .forEach(photo1 -> m.data.stream()
-            .filter(photo2 -> !m.isContained(photo1, photo2))
-            .forEach(photo2 -> {
-                System.out.println("Score " + photo1.getName() + " / " + photo2.getName() +  ": " + m.scoring(photo1, photo2) + "\n");
-            })
-        );
 
+        // String filePath = args[0];
+
+        hashcode m = new hashcode("a_example.txt");
+        m.combinedPhoto();
+
+        for (int i = 0; i < m.data.size(); i++) {
+            for (int j = i + 1; j < m.data.size(); j++) {
+                if (!m.isContained(m.data.get(i), m.data.get(j))) {
+                    m.scoring(m.data.get(i), m.data.get(j));
+                }
+            }
+        }
+
+        m.createSlideShow();
         
     }
 
