@@ -228,17 +228,19 @@ public class hashcode{
     }
 
     public static void main(String[] args) {
-        // if(args.length == 0){
-        //     System.out.println("Please provide the file path");
-        //     return;
-        // }
+        if(args.length == 0){
+            System.out.println("Please provide the file path");
+            return;
+        }
 
-        // String filePath = args[0];
+        String filePath = args[0];
+
+        hashcode m = new hashcode(filePath);
 
         //hashcode m = new hashcode("a_example.txt");
         //hashcode m = new hashcode("c_memorable_moments.txt");
         //hashcode m = new hashcode("c_reduce_set.txt");
-        hashcode m = new hashcode("b_lovely_landscapes.txt");
+        //hashcode m = new hashcode("b_lovely_landscapes.txt");
         m.combinedPhoto();
 
         System.out.println("Size of the dataSet: " + m.data.size());
