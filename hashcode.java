@@ -48,9 +48,7 @@ public class hashcode{
         if(missingTag1 == 0){return 0;}
         int missingTag2 = missingTag(photo2, photo1);
         int score = min(commonTag, missingTag1, missingTag2);
-        if(score != 0){
-            //scores.add(new Score(photo1, photo2, score));  
-        }
+
         return score;
     }
 
@@ -142,6 +140,7 @@ public class hashcode{
 
         while(!isNull){
             Photo photo = scores.get(scores.size()-1).getPhoto2();
+            System.out.println("Photo: " + photo.getName());
             if(photo.getType().equals("C")){
                 isNull = maxScoreCombined(photo);
             }
@@ -164,7 +163,22 @@ public class hashcode{
         int max = 0;
         Photo nextPhoto = null;
         for(Photo p: this.data){
-            if(!p.getUsed() && !photo.getName().contains(p.getName())){
+            if(p.getType().equals("C")){
+                String[] names = p.getName().split(" ");
+                if(!p.getUsed() && (!photo.getName().equals(names[0]) && !photo.getName().equals(names[1]))){
+                    int score = scoring(photo, p);
+                    if(nextPhoto == null){
+                        nextPhoto = p;
+                        max = score;
+                    }
+                    else if(score > max){
+                        max = score;
+                        nextPhoto = p;
+                    }
+                }
+
+            }
+            else if(!p.getUsed() && !photo.getName().equals(p.getName())){
                 int score = scoring(photo, p);
                 if(nextPhoto == null){
                     nextPhoto = p;
@@ -176,6 +190,7 @@ public class hashcode{
                 }
             }
         }
+
         if(nextPhoto != null){
             scores.add(new Score(photo, nextPhoto, max));
             return false;
@@ -189,7 +204,22 @@ public class hashcode{
         String[] names = photo.getName().split(" ");
         Photo nextPhoto = null;
         for(Photo p: this.data){
-            if(!p.getUsed() && (!p.getName().contains(names[0]) && !p.getName().contains(names[1]))){
+            if(p.getType().equals("C")){
+                String[] names2 = p.getName().split(" ");
+                if(!p.getUsed() && (!names[0].equals(names2[0]) && !names[0].equals(names2[1]) && !names[1].equals(names2[0]) && !names[1].equals(names2[1]))){
+                    int score = scoring(photo, p);
+                    if(nextPhoto == null){
+                        nextPhoto = p;
+                        max = score;
+                    }
+                    else if(score > max){
+                        max = score;
+                        nextPhoto = p;
+                    }
+                }
+            }
+
+            else if(!p.getUsed() && (!p.getName().equals(names[0]) && !p.getName().equals(names[1]))){
                 int score = scoring(photo, p);
                 if(nextPhoto == null){
                     nextPhoto = p;
@@ -226,7 +256,7 @@ public class hashcode{
             }
         }
     }
-
+    
     public static void main(String[] args) {
         if(args.length == 0){
             System.out.println("Please provide the file path");
