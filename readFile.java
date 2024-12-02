@@ -47,14 +47,15 @@ public class readFile {
             writer.write(result.size() + 1  + "\n");
             for(int i = 0 ; i < result.size() ; i++){
                 if(i == 0){
-                    writer.write(result.get(i).getPhoto2().getName() + "\n");
                     writer.write(result.get(i).getPhoto1().getName() + "\n");
+                    writer.write(result.get(i).getPhoto2().getName() + "\n");
                 }
                 else{
-                    if(result.get(i).getPhoto1().getName().contains(result.get(i-1).getPhoto1().getName())){
-                        writer.write(result.get(i).getPhoto2().getName() + "\n");
-                    }else{
-                        writer.write(result.get(i).getPhoto1().getName() + "\n");
+                    if(result.get(i).getPhoto2() == null){
+                        continue;
+                    }
+                    else{
+                        writer.write(result.get(i).getPhoto2().getName() +  "\n");
                     }
                 }
             }
