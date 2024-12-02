@@ -4,15 +4,12 @@ public class Photo {
     public String type;
     public boolean used;
     public String[] tags;
-    public boolean combined;
-
 
     public Photo(String name, String type, String[] tags){
         this.name = name;
         this.type = type;
         this.tags = tags;
         this.used = false;
-        this.combined = false;
     }
     
     public String getName(){
@@ -33,14 +30,6 @@ public class Photo {
 
     public void setUsed(boolean used){
         this.used = used;
-    }
-
-    public boolean getCombined(){
-        return this.combined;
-    }
-
-    public void setCombined(boolean combined){
-        this.combined = combined;
     }
     
 }

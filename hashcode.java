@@ -126,7 +126,13 @@ public class hashcode{
         int random = (int) (Math.random() * this.data.size());
         Photo photo = this.data.get(random);
         setUsedPhoto(photo);
-        maxScore(photo);
+        if(photo.getType().equals("C")){
+            maxScoreCombined(photo);
+        }
+        else{
+            maxScore(photo);
+        }
+        
         setUsedPhoto(scores.get(scores.size()-1).getPhoto2());
         loopScore();
 
