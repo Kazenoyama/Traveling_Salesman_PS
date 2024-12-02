@@ -2,11 +2,11 @@
 
 ## Run the main program
 
-``javac hashcode.java``
+``javac hashcode.java``<br>
 ``java hashcode nameOftheFile``
 
 
 ## Create all instances
 
-``javac Instance.java``
+``javac Instance.java``<br>
 ``java Instance``
