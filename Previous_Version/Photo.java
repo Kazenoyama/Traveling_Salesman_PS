@@ -1,3 +1,4 @@
+package Previous_Version;
 public class Photo {
 
     public String name;

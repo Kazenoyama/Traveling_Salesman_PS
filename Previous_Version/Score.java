@@ -1,3 +1,4 @@
+package Previous_Version;
 public class Score {
     Photo photo1;
     Photo photo2;
