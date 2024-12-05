@@ -37,10 +37,6 @@ def correct_form(file_path):
         print(f"Erreur lors de la lecture du fichier : {e}")
         return False
 
-
-
-    
-
 def scoring(file_path):
     if correct_form(file_path):
         with open(file_path, 'r') as file:
@@ -91,11 +87,14 @@ def scoring(file_path):
     else:
         return "Fichier d'entrée pas de la bonne forme"
 
-
 def process_file(input_path, output_path):
     with open(input_path, 'r') as file:
         lines = file.readlines()
 
+    size = lines[0].strip()
+    size = int(size)
+    print(size)
+    
     h_lines = []
     v_lines = []
 
@@ -142,12 +141,13 @@ def process_file(input_path, output_path):
         # Calculer la taille totale des groupes actuels
         total_size = len(grouped_v_groups[current_key])
         
-        if total_size < 200:                                                         # merge groupes si taille < ...
+        print(size // 10)
+        if total_size < size//10:                                                         # merge groupes si taille < ...
             # Déplacer les groupes actuels dans le groupe suivant
             grouped_v_groups[next_key].extend(grouped_v_groups[current_key])
             del grouped_v_groups[current_key]  # Supprimer le groupe déplacé
 
-    #print(grouped_v_groups)
+    # print(grouped_v_groups)
 
     # Étape 3 : Ordonnancement glouton au sein de chaque grand groupe
     final_v_order = []
@@ -211,7 +211,6 @@ def process_file(input_path, output_path):
             for line in group:
                 output_file.write(line + '\n')
 
-
 def merge_v_group(group):
     """
     Combine les mots d'un groupe de lignes V en une seule ligne pour calculer le score.
@@ -221,7 +220,6 @@ def merge_v_group(group):
     for line in group:
         merged_words.update(line.split()[2:])
     return f"V {group_sum} " + " ".join(merged_words)
-
 
 def process_h_lines_greedy(h_lines):
     
@@ -304,9 +302,10 @@ def calculate_score(line1, line2):
     unique2 = len(words2 - words1)
     return min(communs, unique1, unique2)
 
-
 # Utilisation de la fonction
-input_file = "./instances/c_memorable_moments.txt"
+input_file = "./c_memorable_moments.txt"
+# input_file = "./e_shiny_selfies.txt"
+# input_file = "./b_lovely_landscapes.txt"
 output_file = "res2.txt"
 process_file(input_file, output_file)
 print(scoring("res2.txt"))

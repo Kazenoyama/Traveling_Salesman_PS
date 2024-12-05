@@ -46,4 +46,4 @@ def plot_distributions(file_path):
     plt.show()
 
 
-plot_distributions("./instances/e_shiny_selfies.txt")
+plot_distributions("./e_shiny_selfies.txt")
