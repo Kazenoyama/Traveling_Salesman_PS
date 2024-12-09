@@ -37,6 +37,10 @@ def correct_form(file_path):
         print(f"Erreur lors de la lecture du fichier : {e}")
         return False
 
+
+
+    
+
 def scoring(file_path):
     if correct_form(file_path):
         with open(file_path, 'r') as file:
@@ -87,14 +91,11 @@ def scoring(file_path):
     else:
         return "Fichier d'entrée pas de la bonne forme"
 
+
 def process_file(input_path, output_path):
     with open(input_path, 'r') as file:
         lines = file.readlines()
 
-    size = lines[0].strip()
-    size = int(size)
-    print(size)
-    
     h_lines = []
     v_lines = []
 
@@ -141,13 +142,12 @@ def process_file(input_path, output_path):
         # Calculer la taille totale des groupes actuels
         total_size = len(grouped_v_groups[current_key])
         
-        print(size // 10)
-        if total_size < size//10:                                                         # merge groupes si taille < ...
+        if total_size < 200:                                                         # merge groupes si taille < ...
             # Déplacer les groupes actuels dans le groupe suivant
             grouped_v_groups[next_key].extend(grouped_v_groups[current_key])
             del grouped_v_groups[current_key]  # Supprimer le groupe déplacé
 
-    # print(grouped_v_groups)
+    #print(grouped_v_groups)
 
     # Étape 3 : Ordonnancement glouton au sein de chaque grand groupe
     final_v_order = []
@@ -211,6 +211,7 @@ def process_file(input_path, output_path):
             for line in group:
                 output_file.write(line + '\n')
 
+
 def merge_v_group(group):
     """
     Combine les mots d'un groupe de lignes V en une seule ligne pour calculer le score.
@@ -220,6 +221,7 @@ def merge_v_group(group):
     for line in group:
         merged_words.update(line.split()[2:])
     return f"V {group_sum} " + " ".join(merged_words)
+
 
 def process_h_lines_greedy(h_lines):
     
@@ -259,21 +261,20 @@ def process_h_lines_greedy(h_lines):
         while all_lines:
             best_score = -1
             best_index = -1
-            best_line = None
             no_improvement_count = 0  # Compteur pour vérifier l'absence d'amélioration
+            size = len(current_line)
 
             for index, line in enumerate(all_lines):
                 score = calculate_score(current_line, line)
                 if score > best_score:
                     best_score = score
                     best_index = index
-                    best_line = line
                     no_improvement_count = 0  # Réinitialiser le compteur lorsque la condition est respectée
                 else:
                     no_improvement_count += 1  # Incrémenter le compteur si la condition n'est pas respectée
 
                 # Si le compteur atteint 50, sortir de la boucle for
-                if no_improvement_count >= limite_checks_H:
+                if no_improvement_count >= limite_checks_H | best_score >= size//2:
                     break
 
             # Ajout de la meilleure ligne trouvée à la liste ordonnée
@@ -289,23 +290,14 @@ def calculate_score(line1, line2):
     """
     Calcule le score entre deux lignes (H ou V).
     """
-    if isinstance(line1, str):  # Ligne simple
-        words1 = set(line1.split()[2:])
-    else:  # Ligne combinée
-        words1 = set(line1.split()[2:])
-    if isinstance(line2, str):  # Ligne simple
-        words2 = set(line2.split()[2:])
-    else:  # Ligne combinée
-        words2 = set(line2.split()[2:])
+    words1 = set(line1.split()[2:])
+    words2 = set(line2.split()[2:])
     communs = len(words1 & words2)
-    unique1 = len(words1 - words2)
-    unique2 = len(words2 - words1)
-    return min(communs, unique1, unique2)
+    return communs
+
 
 # Utilisation de la fonction
-input_file = "./c_memorable_moments.txt"
-# input_file = "./e_shiny_selfies.txt"
-# input_file = "./b_lovely_landscapes.txt"
+input_file = "./instances/e_shiny_selfies.txt"
 output_file = "res2.txt"
 process_file(input_file, output_file)
 print(scoring("res2.txt"))
