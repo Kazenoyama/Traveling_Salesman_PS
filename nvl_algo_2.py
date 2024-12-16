@@ -1,6 +1,11 @@
+import time
 
 total_score = 0
 nbr_lines = 0
+H_merge = 500
+V_merge = 500
+Number_of_checks_greedy_H = 150
+Number_of_checks_greedy_V = 150
 
 def correct_form(file_path):
     try:
@@ -40,63 +45,57 @@ def correct_form(file_path):
     except Exception as e:
         print(f"Erreur lors de la lecture du fichier : {e}")
         return False
-
-
-
-    
+ 
 
 def scoring(file_path):
-    if correct_form(file_path):
-        with open(file_path, 'r') as file:
-            lines = file.readlines()
-        
-        # Liste pour stocker les mots avec les doublons
-        word_lists = []
-        i = 1  # Commencer après la première ligne (nombre total)
+    print("Scoring : ", file_path)
+    with open(file_path, 'r') as file:
+        lines = file.readlines()
+    # Liste pour stocker les mots avec les doublons
+    word_lists = []
+    i = 1  # Commencer après la première ligne (nombre total)
 
-        while i < len(lines):
-            parts = lines[i].strip().split()
-            line_type = parts[0]
-            words = parts[2:]  # Extraire les mots
+    while i < len(lines):
+        parts = lines[i].strip().split()
+        line_type = parts[0]
+        words = parts[2:]  # Extraire les mots
 
-            if line_type == 'H':
-                # Ajouter les mots directement pour les lignes H
-                word_lists.append(words)  # Liste pour conserver les doublons
-                i += 1
-            elif line_type == 'V':
-                # Regrouper deux lignes V consécutives
-                current_list = words[:]
-                if i + 1 < len(lines) and lines[i + 1].startswith('V'):
-                    next_parts = lines[i + 1].strip().split()
-                    next_words = next_parts[2:]
-                    current_list.extend(next_words)  # Conserver les doublons
-                    i += 1  # Sauter la deuxième ligne V
-                word_lists.append(current_list)
-                i += 1
+        if line_type == 'H':
+            # Ajouter les mots directement pour les lignes H
+            word_lists.append(words)  # Liste pour conserver les doublons
+            i += 1
+        elif line_type == 'V':
+            # Regrouper deux lignes V consécutives
+            current_list = words[:]
+            if i + 1 < len(lines) and lines[i + 1].startswith('V'):
+                next_parts = lines[i + 1].strip().split()
+                next_words = next_parts[2:]
+                current_list.extend(next_words)  # Conserver les doublons
+                i += 1  # Sauter la deuxième ligne V
+            word_lists.append(current_list)
+            i += 1
 
-        # calcul du score total
-        #print(word_lists)
-        score_total = 0
-        for j in range(len(word_lists) - 1):
-            #convertir en Counter pour gérer les doublons
-            set1 = set(word_lists[j])
-            set2 = set(word_lists[j + 1])
+    # calcul du score total
+    #print(word_lists)
+    score_total = 0
+    for j in range(len(word_lists) - 1):
+        #convertir en Counter pour gérer les doublons
+        set1 = set(word_lists[j])
+        set2 = set(word_lists[j + 1])
 
-            communs = len(set1 & set2)  # Intersection
-            unique1 = len(set1 - set2)  # Uniques dans set1
-            unique2 = len(set2 - set1)  # Uniques dans set2
+        communs = len(set1 & set2)  # Intersection
+        unique1 = len(set1 - set2)  # Uniques dans set1
+        unique2 = len(set2 - set1)  # Uniques dans set2
 
-            #Score entre deux ensembles
-            score_ligne = min(communs, unique1, unique2)
-            score_total += score_ligne
+        #Score entre deux ensembles
+        score_ligne = min(communs, unique1, unique2)
+        score_total += score_ligne
 
-        return score_total
-
-    else:
-        return "Fichier d'entrée pas de la bonne forme"
+    return score_total
     
 
 def scoring2(ligne1, ligne2):
+    # print("Scoring : ", ligne1, ligne2)
     set1 = ligne1.strip().split()[3:]
     set2 = ligne2.strip().split()[3:]
 
@@ -227,7 +226,7 @@ def process_h_lines_greedy(h_lines):
     i = 0
     while i < len(sorted_groups):
         key, current_group = sorted_groups[i]
-        while len(current_group) < 500 and i + 1 < len(sorted_groups):   # On merge les groupes si < à ... lignes dans ce groupe
+        while len(current_group) < H_merge and i + 1 < len(sorted_groups):   # On merge les groupes si < à ... lignes dans ce groupe 500
             # Ajouter les lignes du groupe suivant au groupe actuel
             next_key, next_group = sorted_groups[i + 1]
             current_group = current_group + next_group
@@ -242,8 +241,6 @@ def process_h_lines_greedy(h_lines):
         current_line = all_lines.pop(0)
         nbr_lines += 1
         ordered_group = [current_line]
-
-        limite_checks_H = 500                        # combien de checks max sans amélioration pour les H
 
         while all_lines:
             best_score = -1
@@ -261,7 +258,7 @@ def process_h_lines_greedy(h_lines):
                     no_improvement_count += 1  # Incrémenter le compteur si la condition n'est pas respectée
 
                 # Si le compteur atteint 50, sortir de la boucle for
-                if no_improvement_count >= limite_checks_H | best_score >= size//2:
+                if no_improvement_count >= Number_of_checks_greedy_H | best_score >= size//2:
                     break
             
             total_score += scoring2(current_line, all_lines[best_index])
@@ -296,7 +293,7 @@ def process_v_lines_greedy(v_lines):
     i = 0
     while i < len(sorted_groups):
         key, current_group = sorted_groups[i]
-        while len(current_group) < 500 and i + 1 < len(sorted_groups):   # On merge les groupes si < à ... lignes dans ce groupe
+        while len(current_group) < V_merge and i + 1 < len(sorted_groups):   # On merge les groupes si < à ... lignes dans ce groupe
             # Ajouter les lignes du groupe suivant au groupe actuel
             next_key, next_group = sorted_groups[i + 1]
             current_group = current_group + next_group
@@ -310,8 +307,6 @@ def process_v_lines_greedy(v_lines):
         all_lines = current_group.copy()
         current_line = all_lines.pop(0)
         ordered_group = [current_line]
-
-        limite_checks_V = 500                        # combien de checks max sans amélioration pour les V
 
         while all_lines:
             best_score = -1
@@ -329,7 +324,7 @@ def process_v_lines_greedy(v_lines):
                     no_improvement_count += 1  # Incrémenter le compteur si la condition n'est pas respectée
 
                 # Si le compteur atteint 50, sortir de la boucle for
-                if no_improvement_count >= limite_checks_V | best_score >= size//2:
+                if no_improvement_count >= Number_of_checks_greedy_V | best_score >= size//2:
                     break
         
 
@@ -355,8 +350,9 @@ def calculate_score(line1, line2):
 
 
 # Utilisation de la fonction
-input_file = "./instances/c_memorable_moments.txt"
+# input_file = "c_memorable_moments.txt"
+input_file = "b_lovely_landscapes.txt"
 output_file = "res2.txt"
 process_file(input_file, output_file)
-#print(scoring("res2.txt"))
+# print(scoring("res2.txt"))
 print(total_score)
