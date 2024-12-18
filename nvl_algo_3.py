@@ -2,7 +2,7 @@ import time
 
 start_time = time.time()
 
-total_score = 0
+score_total = 0
 nbr_lines = 0
 
 #parametres
@@ -12,7 +12,7 @@ Number_of_checks_greedy_H = 150
 Number_of_checks_greedy_V = 150
 
 temps_accordé = 57      # Le nombre de secondes qu'on a pour faire tout tourner
-ratio_quand_faire_gloutonne_pour_V = 0.00034      #  nombre total de mots differents / nombre total de mots
+ratio_quand_faire_gloutonne_pour_V = 0       #0.00034      #  nombre total de mots differents / nombre total de mots
 combien_permutations_par_ligne_h_localsearch = 10000 # le nombre de permutations qu'on tente pour chaque ligne h (à partir de la fin)
 
 
@@ -155,7 +155,7 @@ def scoring2(ligne1, ligne2):
 
 
 def process_file(input_path, output_path):
-    global total_score, nbr_lines
+    global nbr_lines, score_total
 
     with open(input_path, 'r') as file:
         lines = file.readlines()
@@ -208,7 +208,7 @@ def process_file(input_path, output_path):
 
             while all_lines:
                 
-                total_score += scoring2(current_line[0][2:], all_lines[0][0][2:])
+
                 nbr_lines += 1
 
                 
@@ -291,8 +291,7 @@ def process_file(input_path, output_path):
                         # Vérifier si la limite d'échecs est atteinte
                         if fail_count > max_fail_count | best_score >= length//2:
                             break
-                
-                    total_score += scoring2(current_line[0][2:], all_lines[best_index][0][2:])
+
                     nbr_lines += 1
                     # Mise à jour des ordres après la condition de ... échecs
                     if fail_count > max_fail_count:
@@ -322,7 +321,7 @@ def process_file(input_path, output_path):
     temps_restant = temps_accordé - (end_time - start_time)
     h_lines = local_search_h_with_param(h_lines, combien_permutations_par_ligne_h_localsearch, temps_restant)
 
-    vrai_total = 0
+
     # Écriture dans le fichier de sortie
     with open(input_path, 'r') as file:
         lines = file.readlines()
@@ -330,16 +329,41 @@ def process_file(input_path, output_path):
     with open(output_path, 'w') as output_file:
         first_line = lines[0].strip()
         output_file.write(str(nbr_lines) + '\n')
-
+        
+        last_line = None
         # Écriture des lignes H
         for h_line in h_lines:
             output_file.write(h_line.split()[0] + '\n')
+            if (last_line != None):
+                score_total += scoring2(h_line, last_line)
+            last_line = h_line
 
-        # Écriture des groupes V ordonnés
         for group in final_v_order:
+            # Combiner les lignes d'un groupe en fusionnant les mots
+            combined_line = combine_v_group(group)
             output_file.write(" ".join(line.split()[0] for line in group) + '\n')
 
+            # Calculer le score entre le groupe précédent et le groupe courant
+            if last_line is not None:
+                score_total += scoring2(combined_line, last_line)
 
+            # Mettre à jour le dernier groupe traité
+            last_line = combined_line
+
+
+def combine_v_group(group):
+    """
+    Combine les mots de plusieurs lignes V dans un groupe.
+    """
+    # Extraire tous les mots des lignes du groupe après la 3e colonne
+    all_words = set()
+    for line in group:
+        all_words.update(line.split()[3:])  # Ajouter les mots à l'ensemble
+    
+    # Construire la ligne combinée
+    group_id = group[0].split()[0]  # ID du groupe (premier ID dans le tuple)
+    combined_line = f"{group_id} V {len(all_words)} " + " ".join(sorted(all_words))
+    return combined_line
 
 def merge_v_group(group):
     """
@@ -353,7 +377,7 @@ def merge_v_group(group):
 
 
 def process_h_lines_greedy(h_lines):
-    global total_score, nbr_lines
+    global nbr_lines
     
     # Regrouper par numéro
     groups = {}
@@ -406,7 +430,6 @@ def process_h_lines_greedy(h_lines):
                 if no_improvement_count >= Number_of_checks_greedy_H | best_score >= size//2:
                     break
             
-            total_score += scoring2(current_line, all_lines[best_index])
             nbr_lines += 1
             # Ajout de la meilleure ligne trouvée à la liste ordonnée
             current_line = all_lines.pop(best_index)
@@ -420,7 +443,6 @@ def process_h_lines_greedy(h_lines):
 
 
 def process_v_lines_greedy(v_lines):
-    global total_score
     
     # Regrouper par numéro
     groups = {}
@@ -504,7 +526,7 @@ def local_search_h_with_param(ordered_lines, n, tmps):
         n (int): Portée pour permuter les dernières lignes avec les `n` lignes précédentes.
     """
     start_time_LS = time.time()
-    global total_score
+    global score_total
 
     # Index de la dernière ligne
     last_idx = len(ordered_lines) - 1
@@ -550,8 +572,8 @@ def local_search_h_with_param(ordered_lines, n, tmps):
             # Appliquer la meilleure permutation pour cette itération
             ordered_lines = best_order[:]  # Mise à jour immédiate après chaque itération de j
 
-            # Mise à jour du total_score après chaque itération de j
-            total_score += best_score - original_score
+            # Mise à jour du score_total après chaque itération de j
+            score_total += best_score - original_score
         temps_ecroulé = time.time()
 
         if (tmps - (temps_ecroulé - start_time_LS) <= 0):
@@ -569,4 +591,4 @@ input_file = "./instances/d_pet_pictures.txt"
 output_file = "res2.txt"
 process_file(input_file, output_file)
 # print(scoring("res2.txt"))
-print(total_score)
+print(score_total)
