@@ -1,0 +1,101 @@
+100
+V 16 t65 tn3 tc7 tn2 tzc t6g tp3 tdd tb1 tl9 t55 t71 txg td6 tb3 tpb
+V 18 tzb tdd tm7 tb8 t6h tz7 tvc tw6 tvd tn4 t12 tf5 t5d tm9 txg t35 tt2 td6
+V 15 t43 tcg t1f t84 tg8 t1d tfb tg2 t9d tkj t88 tn6 ts7 tx5 tch
+V 17 tf tsd tr4 tpd tm7 t5b tk9 tw3 txg t5g td8 tq5 t14 twg ts7 tbd t1f
+V 23 t9g trd ttf tj9 t56 tg2 ts9 tr6 t79 tx6 t84 tzf t5g t77 tph tdj tnc t7h t2d tjg t75 t1 ts3
+V 29 tlf td9 t58 t6j tp8 tfh tp5 tbh t74 tt t9c tgg t9b tk7 t1b ttc tq5 t1g tz tq2 t2h tb3 tzc tqg t33 tkb tm4 tnf tmd
+V 13 tbd tdj tz1 t85 txg tq8 twb t26 tc5 tl2 twh tmf tmd
+V 22 t1d tcf tpf t9f tqg t9j tg7 t72 tw1 tj6 t58 twg tzb tjd t42 tt4 t14 t7f thf t6b t16 tk3
+V 19 tk6 t9b tzb tx7 t5f t3g tr6 t0c t85 tbg tc3 tg6 tb9 tc6 t94 tz1 tt2 t65 tx6
+V 20 tq4 tc t7d t26 tkg twd t25 tfj tzh tsb t5h tj t88 tz6 t3 tm2 tt2 t57 th3 tkc
+V 27 tt2 t58 t95 t93 tdh tmj t8f tk3 t5b tj3 tpg tcc tr7 tm5 tz2 t8g td5 t78 tgb tm3 t82 tw5 tjb t7j tq8 tv tq1
+V 21 tr6 t8c t66 t4d t27 tkb tgc t44 tpc t1b tt9 th5 tlj tx1 tc t5d tf4 tj9 thd tl7 t03
+V 17 tp3 tzd t74 t48 t75 tbh tw tfb tvd t5 trb tdj t0c tbd thh ts t2j
+V 16 tqf t2f th5 tf8 ttg th t43 t98 tj7 tp5 tqb tqd tf tx8 tr6 tn9
+V 22 tx3 td4 tt tc6 tk t3f tx4 t14 t3g tc1 t9 tqb tsf t68 t1j tdg tc tjf t55 tgg tbg td5
+V 29 txh t41 t0f t24 t54 t78 tv7 tzh tq1 txb tmb tf1 t77 t2f t5c tc3 th3 tv4 tq9 thj tf7 tcb twh t37 t58 tqb t27 tk1 tr6
+V 15 tqd tw9 trc t7d tm6 tz8 t5c tff t16 tbc tc tt t28 tv8 tm1
+V 16 tn4 tz4 tq8 ts1 tkh th4 t41 tcf t29 ttc t5j trc t5h tj tl9 tt5
+V 26 tr6 twf th4 tm3 tw9 t1g td3 t93 ttc tkd tp9 tt3 txc t2j th9 t72 twg tdb tdc t62 tsb tj9 tk6 tph t81 tl5
+V 18 tr8 tz1 t1g tzc t54 t8b t08 tw6 ts7 tf5 tkh tzb tc6 tl3 tq7 t68 tg4 tnf
+V 14 tdf tv2 tj9 tf1 tg9 tr8 t6b t4c tbb tw6 tgg tf6 th8 t07
+V 20 tw9 tqc t02 tz2 txh trd trf tm9 tl5 tr6 tb6 tv1 trb tx1 tgg tg2 t82 tw4 tr7 tsc
+V 11 t1j ttg tk3 th6 t6f t76 tcc th9 tr2 t65 tbc
+V 22 tr8 tv8 tp1 t3f tqg t9f t39 tz t35 td5 ts tf3 tp4 t1f tpg tg3 t59 tbj tdh t2g tvg t29
+V 24 ts3 tj t55 t82 t89 tw2 t92 tx2 td tw9 t29 t2 t17 tcg tzd tr2 t56 tp3 tlj tq4 tfb th3 t3f tvf
+V 12 th6 tsg tn7 tzd th8 tzh tj1 t71 tcf tr4 t2c tz6
+V 28 tt2 tg tgg tr2 t83 th9 t85 t86 tdh tj4 tbb tt9 t41 tl1 tjf t63 t7j tsh tvb tk6 t6c tj t2h tt tpb ts1 tn t11
+V 22 t38 t01 t56 th8 tjg t0d tk t12 td t7h t42 t93 tc tbc tf4 tgb tkf tph t53 tp8 tgj t07
+V 9 tzh tc1 t2d t9b t9g tl4 t96 ttc t7h
+V 28 tmg tv4 tt7 t57 th8 t6f tf2 tn t4f tvc t07 tqd tz7 t65 t3j tq5 tqg t0b tf6 tlg t43 t39 tb1 tz1 tc5 ts6 tlj t3g
+V 28 t9f tb2 td4 t53 t8 t9b tl1 tx9 t0h tc3 t04 tkb tsh tgc t16 tw6 tt5 t83 tb3 ttc tf4 tqc tn1 txc tx5 t64 t3j tm7
+V 26 th3 tj7 tb6 t2 t93 tzc ttc tv4 td5 tjj tnh twd t35 tp9 tn5 ts5 t17 t6g tkj tlc tl7 t3h tx2 tv1 t3c t0f
+V 21 t57 td6 ts2 tfh tlh tg2 t0j tdj tdf t09 tfg t3b tq3 t5j tj3 t9c tbb tq6 t62 tmb th1
+V 10 t72 t0g t31 tcj tv4 t2g tz2 tsh tr6 t1h
+V 20 t1d t81 t5b tw7 ts2 tkc tl2 t17 t6j tl4 tfd t28 t1b tbf t24 t86 t6f tw1 txh t8d
+V 10 tl5 tv t34 tj9 t3d tkc t9g tzf tm1 tmb
+V 28 tdh t89 tc7 tc6 tl t1h t48 ts6 tvb t6d ts7 trh tq1 tpc tp1 tl8 t76 t0g t9d tp7 ts4 tk4 tgb tgg tb t59 tmd ttc
+V 20 tbh t77 t52 tf tld tj5 tp9 t9g tb4 t72 tzb tj t8j t6c tvd ttc t69 t8 tj1 tsf
+V 16 tpc t99 tpg tbg t92 t7c tld tzg tk3 t0h t98 tmb td4 t64 trg twc
+V 18 tt2 tj1 t2h tfc ts1 twh tm7 ts4 t8c tx3 tbf t99 txh tj7 tkg t11 t42 tkf
+V 16 trb t83 tm7 tlh th7 tj3 tq4 tbf tv1 tr3 th9 tp5 ts4 thc tq5 t8c
+V 27 tw8 t13 tq3 t55 tm2 tfb tg2 tpd t75 t0b t3j t9j tdg tk6 tcb trd tfh tq5 tz2 t32 tf7 t6j tnc tn1 tsh tn5 tb
+V 18 tcg tk7 tk5 t8d tz4 tp4 tkd tpb tl8 tg4 td2 t78 tkj tsd tmc tfb tw8 tz
+V 13 tg5 tk6 t4 tvg t7b twh tt t63 txd thd tr6 tf4 t7d
+V 16 tx1 tp7 t6h t38 tb9 t8g tk3 td tf6 t66 tfj tx7 tg2 tf1 tbg ts4
+V 16 tm7 t1g t5c t07 trg tkf ts9 tg t22 tc6 t95 th tv tc1 ttb td6
+V 24 tnh tj6 tl1 tjj t9h t65 tt6 tj1 tl7 tf tk6 tn tk2 t38 t36 t14 t0d tn9 tx3 tzb t12 tbb tnc tm1
+V 16 t58 tfb ts8 tsh tn4 tpg tq6 tn7 tnb tr8 trd t25 tz6 t02 tld tf9
+V 17 t1c ts9 tt7 tkf td4 td3 t95 t09 twg t44 tlg tgg tbg tm1 tf7 tm3 t79
+V 24 tv4 tl tmf t96 t14 tr9 tc tsd t77 t9g t1 tn2 tf1 ts tf8 tf ttg t94 tg4 tv5 tsg tb3 t6h td3
+V 24 t31 tmd t9g thd tj6 tr6 t9h t99 tjj tpd tfb t44 tmg t94 tlf tcj tq9 t2b t2d tmj tff tp9 tqh tvh
+V 20 t6d tw4 tdj t3g tcc tqd tmj t3h t2d t1f tr6 thd tch t5 tp t89 t0c tm3 trd tj5
+V 28 t6j td3 t69 t7 tb8 tb7 tfd t98 tp3 tt6 trf th1 tnh td7 tl8 tff t5c tl4 tc6 th9 tv3 t1d tw1 t43 twg tmg tx8 tj2
+V 27 tg2 tmg tb5 t7h ts2 t33 tv6 t5b tj6 ts8 t3d tqf tm9 t67 t34 t2d ts9 tf6 tk8 tc1 t13 tf5 tb2 tsh tm4 t4 tx1
+V 24 ts7 t52 tfj t7h trb tpc t33 tvb tmh t25 ts1 tqb tq tk5 trh tzf tgf t03 tdb tvd tl2 tc8 tg1 tl4
+V 26 tt8 t1 txd tm2 tlb tx tb4 tdh t99 tz6 t6g tkd twb th3 t5f t48 tkj tb1 tl9 t82 tj5 tf3 tp3 t5g tkc trc
+V 18 td2 tz1 tv8 t41 th7 t59 tv9 tw4 tlc tqh t4f t89 t8f th t7g tl1 t5j tpg
+V 13 tdj tg5 tqf ttc tf1 t4d th1 tb tgh tz3 twh tbb tp3
+V 28 t9c tg1 tqg ttg tw3 tph tv9 tj7 txh tl9 t6 tj5 t93 tf2 th6 tx7 t64 tsd tw4 t53 t2j t71 tc t9 t33 tqd tm tmh
+V 25 trb tf1 tfj t9d t0j tt1 tk9 t7 t66 t9b tr2 tb5 t8c t65 tqh t4h tlb td9 tp4 t01 t24 tvc t7d t42 th6
+V 21 tz2 t93 tdd tcc t83 tzf t87 tl9 txh twc tq9 tsc t58 thg t2h t9 tmc t3c tlj tq2 tcg
+V 27 ts tlj t9 t6d t24 tz2 ts3 t78 tdg t88 tph tth t1h tt8 tj2 t51 t85 t26 tr4 tkh t11 tzc t97 tgd ttd tb5 t5j
+V 11 tdf tnb tlg tt7 tpb t2b tr7 tz7 t99 tn tq5
+V 10 tzh tpd tj t62 tn3 tfj tr2 t52 t53 tb4
+V 26 t03 tz4 tsh tdd thb t02 t1j txd tdh tt9 tj6 tjb th6 t9c t6f t79 t9g t52 tv3 tn9 ts3 tc8 trh t8b thf tz7
+V 16 tk t95 t9j td3 tq1 tjg td tqd ts5 tn8 tn2 t6f tg6 tbj td4 t07
+V 26 tt7 t65 t6b t3c t75 t68 t39 tf6 ts6 tfg tx3 thf tn8 tj tpd txc t73 txd tm tn1 tl tj3 tr3 t86 t0c t9
+V 25 t2g t88 ts8 tx9 trd t7f tw8 t31 txc t55 tt2 tk7 tw1 tsg t1g tcb tb9 tc5 t86 tzc tkh tjb tcg t62 tg2
+V 11 t68 tff tt1 tnf tqb t41 tr2 tk5 tn3 tdj t77
+V 21 t86 tv8 t7j t37 tp4 t4j t3 t07 tx7 tgc t1 tz5 tr1 tn t0f twb tc1 t6g t88 tz9 t3g
+V 12 twg tc2 tk tv6 tnf t34 t13 tng tf6 tld tff tsd
+V 23 td3 t45 tjj tj9 tp5 tvf tk9 tl tk6 tz5 tlf tng tjd td4 tr7 t2b tn3 tn4 tq1 tr6 tn9 td2 tt2
+V 22 tkf trc tq2 t46 t9c tm9 t66 tqd tm7 tfg trb t27 t5g tfb t3c t88 th6 tq7 t87 tzd t3g t31
+V 19 t55 tw6 tl4 t52 t81 t5f trc t44 tc5 tl7 tf6 tqf tv9 t63 txb tf3 thj tkf t29
+V 28 t0b tl9 t7g th t9c tf t8g tb6 t94 tdd ttd t3g tk8 tx4 tq3 tf7 trh tj9 txd tr3 t48 tsf tl2 t13 tt8 t39 tjh tl5
+V 13 tt5 tsd t88 tw4 t69 ts9 tz7 tv2 t tph tr5 t6j tjj
+V 20 t12 t38 t52 ts tjf t8j tzf t09 tb4 txc tz6 tm6 t7j tq7 tf9 tdj tlc t79 tg6 td3
+V 24 tjb tph th2 tk1 t92 tl5 tf7 t9h tx6 tsh tq5 t81 tn6 tkg tnd tc1 tgf tw9 t2h t58 t7d tf2 tj6 tg3
+V 17 tnf tb9 th1 tr tgh tq t7d tk3 tr8 tg tn9 tj9 t16 tz8 tw t8c tl
+V 15 t1g tz4 t0f t3f tc7 t43 tj3 t6g tg tdf th1 tgc tl3 txg th6
+V 11 tt t28 tt5 tdf tfj tj9 tfg t84 t31 tg3 t95
+V 11 tsf tr2 tv2 tmd ts txd t53 t81 ts9 tlf t6
+V 11 tgh tth tld ts3 t4 t18 thf tg6 t1g t43 ttb
+V 20 tz twc tf4 trc tmb tr4 t2f tv8 t8c tgf tm8 tf7 tjf tkc tlh tvd tl7 tlj tvh tp9
+V 23 t19 tpg t5 ts3 tdf tc7 t1b t14 th5 tpd t15 tb2 t4b t5j tvf td2 tx9 tq3 t3g tf1 t91 t07 tgd
+V 27 tp t07 tj4 t2c tzf tsc t5 tlj tpd t6g tz9 t96 tg9 tpc tq7 tqb tq4 tmd t31 tbj tx1 tsg t46 t7 tg tz t1b
+V 20 tx6 tw6 t7h tzf tgf t91 t56 tpd t41 tg2 t95 t84 tl3 tcj tn6 t53 tr2 tlb tlf t5g
+V 21 ttb t98 t22 tp2 tgj thf tq tv7 tdc tk1 tvh t4f tb8 tq4 t15 t0d tsh tl6 t48 t17 t6d
+V 11 t32 tc9 tx2 tw3 tdg tqf tmb t6h thh t0h tf7
+V 11 tq2 t0f tx1 txd t1j t85 tnh tr2 tc4 t43 tdf
+V 10 tq2 tv7 t4b thj trc tq5 t9g tkh td9 tz2
+V 18 t05 t4g ttb t5b t1g tl4 tsb t17 tv7 t1 t1d twg t83 tk7 tz6 t86 t18 t82
+V 24 t7h ttg t7 t58 tb6 t98 t0j t05 tmj tvg t4c tfj tk tzc tj3 ts thb tx t0g t5f tz8 tf3 tb8 twg
+V 26 t9j t1c tz6 tp1 tzc t66 tdb t77 tbh tlc t tkc t86 tgj t21 tw3 tmj t5h t6h tw9 tsb tg3 tq6 tv8 tz2 txb
+V 20 tfh tr9 t1 tfd tg8 t35 tm5 tdd t8 tw7 tx t7d t8d tp5 t04 td1 t3j tv7 ts8 tc2
+V 21 ts9 tn5 tx7 tp9 tcd tc2 t1g tch t31 tg4 tt t8g th1 tr6 t5f th3 t5j tx6 th6 t54 tq
+V 16 t9 tlj tj1 tf9 twd tj8 tdc tlg tzf tfh trg tjj t5b tdb tv3 tdj
+V 9 t16 tzc t23 tr5 t65 t3h tzg t97 ts5
+V 15 tn3 tp8 tmb tdd tl5 tr7 t38 tw3 tl6 tfd ts5 tl3 t61 tq8 tcf
+V 18 tt5 tk7 tr3 tk1 tp6 tm6 tz ts5 tvh t39 tn2 tc3 tbf t18 tv9 tg5 t23 td4

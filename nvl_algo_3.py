@@ -8,10 +8,10 @@ nbr_lines = 0
 #parametres
 H_merge = 500
 V_merge = 500
-Number_of_checks_greedy_H = 150
-Number_of_checks_greedy_V = 150
+Number_of_checks_greedy_H = 2
+Number_of_checks_greedy_V = 2
 
-temps_accordé = 57      # Le nombre de secondes qu'on a pour faire tout tourner
+temps_accordé = 30      # Le nombre de secondes qu'on a pour faire tout tourner
 ratio_quand_faire_gloutonne_pour_V = 0       #0.00034      #  nombre total de mots differents / nombre total de mots
 combien_permutations_par_ligne_h_localsearch = 10000 # le nombre de permutations qu'on tente pour chaque ligne h (à partir de la fin)
 
@@ -587,8 +587,13 @@ def local_search_h_with_param(ordered_lines, n, tmps):
 
 # Utilisation de la fonction
 # input_file = "c_memorable_moments.txt"
-input_file = "./instances/d_pet_pictures.txt"
+
+
+input_file = "./hashcode/d_pet_pictures.txt"
 output_file = "res2.txt"
 process_file(input_file, output_file)
 # print(scoring("res2.txt"))
 print(score_total)
+end_time = time.time()
+elapsed_time = end_time - start_time
+print("Elapsed time: {:02}:{:02}:{:02}".format(int(elapsed_time // 3600), int((elapsed_time % 3600) // 60), int(elapsed_time % 60)))
