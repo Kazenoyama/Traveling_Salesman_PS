@@ -1,0 +1,311 @@
+Starting hyperparameter tuning for b01000-2.txt
+
+---------------- Number_of_checks_greedy_H: 138 ------------------------
+
+Total score: 8886, Elapsed time: 0.28 seconds
+H_merge: 250, V_merge: 0
+Number_of_checks_greedy_H: 138, Number_of_checks_greedy_V: 0
+
+Total score: 8904, Elapsed time: 0.31 seconds
+H_merge: 500, V_merge: 0
+Number_of_checks_greedy_H: 138, Number_of_checks_greedy_V: 0
+
+Total score: 8925, Elapsed time: 0.35 seconds
+H_merge: 1000, V_merge: 0
+Number_of_checks_greedy_H: 138, Number_of_checks_greedy_V: 0
+
+Total score: 8946, Elapsed time: 0.35 seconds
+H_merge: 1500, V_merge: 0
+Number_of_checks_greedy_H: 138, Number_of_checks_greedy_V: 0
+
+Total score: 8967, Elapsed time: 0.35 seconds
+H_merge: 3000, V_merge: 0
+Number_of_checks_greedy_H: 138, Number_of_checks_greedy_V: 0
+
+Total score: 8988, Elapsed time: 0.34 seconds
+H_merge: 5000, V_merge: 0
+Number_of_checks_greedy_H: 138, Number_of_checks_greedy_V: 0
+
+Total score: 9009, Elapsed time: 0.34 seconds
+H_merge: 10000, V_merge: 0
+Number_of_checks_greedy_H: 138, Number_of_checks_greedy_V: 0
+
+Total score: 9030, Elapsed time: 0.34 seconds
+H_merge: 15000, V_merge: 0
+Number_of_checks_greedy_H: 138, Number_of_checks_greedy_V: 0
+
+Total score: 9051, Elapsed time: 0.34 seconds
+H_merge: 20000, V_merge: 0
+Number_of_checks_greedy_H: 138, Number_of_checks_greedy_V: 0
+
+Total score: 9072, Elapsed time: 0.34 seconds
+H_merge: 25000, V_merge: 0
+Number_of_checks_greedy_H: 138, Number_of_checks_greedy_V: 0
+
+Total score: 9093, Elapsed time: 0.34 seconds
+H_merge: 30000, V_merge: 0
+Number_of_checks_greedy_H: 138, Number_of_checks_greedy_V: 0
+
+Total score: 9114, Elapsed time: 0.34 seconds
+H_merge: 35000, V_merge: 0
+Number_of_checks_greedy_H: 138, Number_of_checks_greedy_V: 0
+
+Total score: 9135, Elapsed time: 0.34 seconds
+H_merge: 40000, V_merge: 0
+Number_of_checks_greedy_H: 138, Number_of_checks_greedy_V: 0
+
+Total score: 9156, Elapsed time: 0.34 seconds
+H_merge: 45000, V_merge: 0
+Number_of_checks_greedy_H: 138, Number_of_checks_greedy_V: 0
+
+Total score: 9177, Elapsed time: 0.34 seconds
+H_merge: 50000, V_merge: 0
+Number_of_checks_greedy_H: 138, Number_of_checks_greedy_V: 0
+
+---------------- Number_of_checks_greedy_H: 276 ------------------------
+
+Total score: 9201, Elapsed time: 0.42 seconds
+H_merge: 250, V_merge: 0
+Number_of_checks_greedy_H: 276, Number_of_checks_greedy_V: 0
+
+Total score: 9243, Elapsed time: 0.51 seconds
+H_merge: 500, V_merge: 0
+Number_of_checks_greedy_H: 276, Number_of_checks_greedy_V: 0
+
+Total score: 9288, Elapsed time: 0.63 seconds
+H_merge: 1000, V_merge: 0
+Number_of_checks_greedy_H: 276, Number_of_checks_greedy_V: 0
+
+Total score: 9333, Elapsed time: 0.62 seconds
+H_merge: 1500, V_merge: 0
+Number_of_checks_greedy_H: 276, Number_of_checks_greedy_V: 0
+
+Total score: 9378, Elapsed time: 0.64 seconds
+H_merge: 3000, V_merge: 0
+Number_of_checks_greedy_H: 276, Number_of_checks_greedy_V: 0
+
+Total score: 9423, Elapsed time: 0.66 seconds
+H_merge: 5000, V_merge: 0
+Number_of_checks_greedy_H: 276, Number_of_checks_greedy_V: 0
+
+Total score: 9468, Elapsed time: 0.63 seconds
+H_merge: 10000, V_merge: 0
+Number_of_checks_greedy_H: 276, Number_of_checks_greedy_V: 0
+
+Total score: 9513, Elapsed time: 0.65 seconds
+H_merge: 15000, V_merge: 0
+Number_of_checks_greedy_H: 276, Number_of_checks_greedy_V: 0
+
+Total score: 9558, Elapsed time: 0.65 seconds
+H_merge: 20000, V_merge: 0
+Number_of_checks_greedy_H: 276, Number_of_checks_greedy_V: 0
+
+Total score: 9603, Elapsed time: 0.64 seconds
+H_merge: 25000, V_merge: 0
+Number_of_checks_greedy_H: 276, Number_of_checks_greedy_V: 0
+
+Total score: 9648, Elapsed time: 0.62 seconds
+H_merge: 30000, V_merge: 0
+Number_of_checks_greedy_H: 276, Number_of_checks_greedy_V: 0
+
+Total score: 9693, Elapsed time: 0.62 seconds
+H_merge: 35000, V_merge: 0
+Number_of_checks_greedy_H: 276, Number_of_checks_greedy_V: 0
+
+Total score: 9738, Elapsed time: 0.62 seconds
+H_merge: 40000, V_merge: 0
+Number_of_checks_greedy_H: 276, Number_of_checks_greedy_V: 0
+
+Total score: 9783, Elapsed time: 0.62 seconds
+H_merge: 45000, V_merge: 0
+Number_of_checks_greedy_H: 276, Number_of_checks_greedy_V: 0
+
+Total score: 9828, Elapsed time: 0.62 seconds
+H_merge: 50000, V_merge: 0
+Number_of_checks_greedy_H: 276, Number_of_checks_greedy_V: 0
+
+---------------- Number_of_checks_greedy_H: 414 ------------------------
+
+Total score: 9864, Elapsed time: 0.46 seconds
+H_merge: 250, V_merge: 0
+Number_of_checks_greedy_H: 414, Number_of_checks_greedy_V: 0
+
+Total score: 9915, Elapsed time: 0.61 seconds
+H_merge: 500, V_merge: 0
+Number_of_checks_greedy_H: 414, Number_of_checks_greedy_V: 0
+
+Total score: 9978, Elapsed time: 0.86 seconds
+H_merge: 1000, V_merge: 0
+Number_of_checks_greedy_H: 414, Number_of_checks_greedy_V: 0
+
+Total score: 10041, Elapsed time: 0.86 seconds
+H_merge: 1500, V_merge: 0
+Number_of_checks_greedy_H: 414, Number_of_checks_greedy_V: 0
+
+Total score: 10104, Elapsed time: 0.85 seconds
+H_merge: 3000, V_merge: 0
+Number_of_checks_greedy_H: 414, Number_of_checks_greedy_V: 0
+
+Total score: 10167, Elapsed time: 0.87 seconds
+H_merge: 5000, V_merge: 0
+Number_of_checks_greedy_H: 414, Number_of_checks_greedy_V: 0
+
+Total score: 10230, Elapsed time: 0.85 seconds
+H_merge: 10000, V_merge: 0
+Number_of_checks_greedy_H: 414, Number_of_checks_greedy_V: 0
+
+Total score: 10293, Elapsed time: 0.86 seconds
+H_merge: 15000, V_merge: 0
+Number_of_checks_greedy_H: 414, Number_of_checks_greedy_V: 0
+
+Total score: 10356, Elapsed time: 0.87 seconds
+H_merge: 20000, V_merge: 0
+Number_of_checks_greedy_H: 414, Number_of_checks_greedy_V: 0
+
+Total score: 10419, Elapsed time: 0.86 seconds
+H_merge: 25000, V_merge: 0
+Number_of_checks_greedy_H: 414, Number_of_checks_greedy_V: 0
+
+Total score: 10482, Elapsed time: 0.85 seconds
+H_merge: 30000, V_merge: 0
+Number_of_checks_greedy_H: 414, Number_of_checks_greedy_V: 0
+
+Total score: 10545, Elapsed time: 0.85 seconds
+H_merge: 35000, V_merge: 0
+Number_of_checks_greedy_H: 414, Number_of_checks_greedy_V: 0
+
+Total score: 10608, Elapsed time: 0.87 seconds
+H_merge: 40000, V_merge: 0
+Number_of_checks_greedy_H: 414, Number_of_checks_greedy_V: 0
+
+Total score: 10671, Elapsed time: 0.86 seconds
+H_merge: 45000, V_merge: 0
+Number_of_checks_greedy_H: 414, Number_of_checks_greedy_V: 0
+
+Total score: 10734, Elapsed time: 0.86 seconds
+H_merge: 50000, V_merge: 0
+Number_of_checks_greedy_H: 414, Number_of_checks_greedy_V: 0
+
+---------------- Number_of_checks_greedy_H: 552 ------------------------
+
+Total score: 10770, Elapsed time: 0.46 seconds
+H_merge: 250, V_merge: 0
+Number_of_checks_greedy_H: 552, Number_of_checks_greedy_V: 0
+
+Total score: 10821, Elapsed time: 0.67 seconds
+H_merge: 500, V_merge: 0
+Number_of_checks_greedy_H: 552, Number_of_checks_greedy_V: 0
+
+Total score: 10896, Elapsed time: 1.04 seconds
+H_merge: 1000, V_merge: 0
+Number_of_checks_greedy_H: 552, Number_of_checks_greedy_V: 0
+
+Total score: 10971, Elapsed time: 1.06 seconds
+H_merge: 1500, V_merge: 0
+Number_of_checks_greedy_H: 552, Number_of_checks_greedy_V: 0
+
+Total score: 11046, Elapsed time: 1.06 seconds
+H_merge: 3000, V_merge: 0
+Number_of_checks_greedy_H: 552, Number_of_checks_greedy_V: 0
+
+Total score: 11121, Elapsed time: 1.06 seconds
+H_merge: 5000, V_merge: 0
+Number_of_checks_greedy_H: 552, Number_of_checks_greedy_V: 0
+
+Total score: 11196, Elapsed time: 1.04 seconds
+H_merge: 10000, V_merge: 0
+Number_of_checks_greedy_H: 552, Number_of_checks_greedy_V: 0
+
+Total score: 11271, Elapsed time: 1.04 seconds
+H_merge: 15000, V_merge: 0
+Number_of_checks_greedy_H: 552, Number_of_checks_greedy_V: 0
+
+Total score: 11346, Elapsed time: 1.05 seconds
+H_merge: 20000, V_merge: 0
+Number_of_checks_greedy_H: 552, Number_of_checks_greedy_V: 0
+
+Total score: 11421, Elapsed time: 1.04 seconds
+H_merge: 25000, V_merge: 0
+Number_of_checks_greedy_H: 552, Number_of_checks_greedy_V: 0
+
+Total score: 11496, Elapsed time: 1.04 seconds
+H_merge: 30000, V_merge: 0
+Number_of_checks_greedy_H: 552, Number_of_checks_greedy_V: 0
+
+Total score: 11571, Elapsed time: 1.05 seconds
+H_merge: 35000, V_merge: 0
+Number_of_checks_greedy_H: 552, Number_of_checks_greedy_V: 0
+
+Total score: 11646, Elapsed time: 1.04 seconds
+H_merge: 40000, V_merge: 0
+Number_of_checks_greedy_H: 552, Number_of_checks_greedy_V: 0
+
+Total score: 11721, Elapsed time: 1.07 seconds
+H_merge: 45000, V_merge: 0
+Number_of_checks_greedy_H: 552, Number_of_checks_greedy_V: 0
+
+Total score: 11796, Elapsed time: 1.08 seconds
+H_merge: 50000, V_merge: 0
+Number_of_checks_greedy_H: 552, Number_of_checks_greedy_V: 0
+
+---------------- Number_of_checks_greedy_H: 690 ------------------------
+
+Total score: 11832, Elapsed time: 0.48 seconds
+H_merge: 250, V_merge: 0
+Number_of_checks_greedy_H: 690, Number_of_checks_greedy_V: 0
+
+Total score: 11883, Elapsed time: 0.70 seconds
+H_merge: 500, V_merge: 0
+Number_of_checks_greedy_H: 690, Number_of_checks_greedy_V: 0
+
+Total score: 11964, Elapsed time: 1.18 seconds
+H_merge: 1000, V_merge: 0
+Number_of_checks_greedy_H: 690, Number_of_checks_greedy_V: 0
+
+Total score: 12045, Elapsed time: 1.18 seconds
+H_merge: 1500, V_merge: 0
+Number_of_checks_greedy_H: 690, Number_of_checks_greedy_V: 0
+
+Total score: 12126, Elapsed time: 1.19 seconds
+H_merge: 3000, V_merge: 0
+Number_of_checks_greedy_H: 690, Number_of_checks_greedy_V: 0
+
+Total score: 12207, Elapsed time: 1.19 seconds
+H_merge: 5000, V_merge: 0
+Number_of_checks_greedy_H: 690, Number_of_checks_greedy_V: 0
+
+Total score: 12288, Elapsed time: 1.21 seconds
+H_merge: 10000, V_merge: 0
+Number_of_checks_greedy_H: 690, Number_of_checks_greedy_V: 0
+
+Total score: 12369, Elapsed time: 1.19 seconds
+H_merge: 15000, V_merge: 0
+Number_of_checks_greedy_H: 690, Number_of_checks_greedy_V: 0
+
+Total score: 12450, Elapsed time: 1.20 seconds
+H_merge: 20000, V_merge: 0
+Number_of_checks_greedy_H: 690, Number_of_checks_greedy_V: 0
+
+Total score: 12531, Elapsed time: 1.18 seconds
+H_merge: 25000, V_merge: 0
+Number_of_checks_greedy_H: 690, Number_of_checks_greedy_V: 0
+
+Total score: 12612, Elapsed time: 1.17 seconds
+H_merge: 30000, V_merge: 0
+Number_of_checks_greedy_H: 690, Number_of_checks_greedy_V: 0
+
+Total score: 12693, Elapsed time: 1.19 seconds
+H_merge: 35000, V_merge: 0
+Number_of_checks_greedy_H: 690, Number_of_checks_greedy_V: 0
+
+Total score: 12774, Elapsed time: 1.20 seconds
+H_merge: 40000, V_merge: 0
+Number_of_checks_greedy_H: 690, Number_of_checks_greedy_V: 0
+
+Total score: 12855, Elapsed time: 1.18 seconds
+H_merge: 45000, V_merge: 0
+Number_of_checks_greedy_H: 690, Number_of_checks_greedy_V: 0
+
+Total score: 12936, Elapsed time: 1.17 seconds
+H_merge: 50000, V_merge: 0
+Number_of_checks_greedy_H: 690, Number_of_checks_greedy_V: 0

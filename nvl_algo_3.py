@@ -1,4 +1,5 @@
 import time
+import os
 
 start_time = time.time()
 
@@ -8,10 +9,14 @@ nbr_lines = 0
 #parametres
 H_merge = 500
 V_merge = 500
-Number_of_checks_greedy_H = 2
-Number_of_checks_greedy_V = 2
+Number_of_checks_greedy_H = 150
+Number_of_checks_greedy_V = 150
 
-temps_accordé = 30      # Le nombre de secondes qu'on a pour faire tout tourner
+
+
+
+
+temps_accordé = 30     # Le nombre de secondes qu'on a pour faire tout tourner
 ratio_quand_faire_gloutonne_pour_V = 0       #0.00034      #  nombre total de mots differents / nombre total de mots
 combien_permutations_par_ligne_h_localsearch = 10000 # le nombre de permutations qu'on tente pour chaque ligne h (à partir de la fin)
 
@@ -47,7 +52,6 @@ def calculate_word_ratio_v_lines(input_file):
     if len(unique_words) == 0:  # Éviter la division par zéro
         return 0.0
     return len(unique_words) / total_words
-
 
 def correct_form(file_path):
     try:
@@ -88,7 +92,6 @@ def correct_form(file_path):
         print(f"Erreur lors de la lecture du fichier : {e}")
         return False
  
-
 def scoring(file_path):
     print("Scoring : ", file_path)
     with open(file_path, 'r') as file:
@@ -135,7 +138,6 @@ def scoring(file_path):
 
     return score_total
     
-
 def scoring2(ligne1, ligne2):
     # print("Scoring : ", ligne1, ligne2)
     set1 = ligne1.strip().split()[3:]
@@ -152,7 +154,6 @@ def scoring2(ligne1, ligne2):
     score_ligne = min(communs, unique1, unique2)
 
     return score_ligne
-
 
 def process_file(input_path, output_path):
     global nbr_lines, score_total
@@ -319,7 +320,7 @@ def process_file(input_path, output_path):
     #local search
     end_time = time.time()
     temps_restant = temps_accordé - (end_time - start_time)
-    h_lines = local_search_h_with_param(h_lines, combien_permutations_par_ligne_h_localsearch, temps_restant)
+    # h_lines = local_search_h_with_param(h_lines, combien_permutations_par_ligne_h_localsearch, temps_restant)
 
 
     # Écriture dans le fichier de sortie
@@ -350,7 +351,6 @@ def process_file(input_path, output_path):
             # Mettre à jour le dernier groupe traité
             last_line = combined_line
 
-
 def combine_v_group(group):
     """
     Combine les mots de plusieurs lignes V dans un groupe.
@@ -374,7 +374,6 @@ def merge_v_group(group):
     for line in group:
         merged_words.update(line.split()[3:])
     return f"V {group_sum} " + " ".join(merged_words)
-
 
 def process_h_lines_greedy(h_lines):
     global nbr_lines
@@ -440,8 +439,6 @@ def process_h_lines_greedy(h_lines):
 
     return ordered_lines
 
-
-
 def process_v_lines_greedy(v_lines):
     
     # Regrouper par numéro
@@ -504,8 +501,6 @@ def process_v_lines_greedy(v_lines):
 
     return ordered_lines
 
-
-
 def calculate_score(line1, line2):
     """
     Calcule le score entre deux lignes (H ou V).
@@ -514,7 +509,6 @@ def calculate_score(line1, line2):
     words2 = set(line2.split()[3:])
     communs = len(words1 & words2)
     return communs
-
 
 def local_search_h_with_param(ordered_lines, n, tmps):
     """
@@ -526,6 +520,7 @@ def local_search_h_with_param(ordered_lines, n, tmps):
         n (int): Portée pour permuter les dernières lignes avec les `n` lignes précédentes.
     """
     start_time_LS = time.time()
+    print("Local search Started with remaining time: ", start_time_LS - start_time) 
     global score_total
 
     # Index de la dernière ligne
@@ -581,19 +576,87 @@ def local_search_h_with_param(ordered_lines, n, tmps):
     # Retourner l'ordre optimal des lignes
     return best_order
 
-
-
-
-
 # Utilisation de la fonction
 # input_file = "c_memorable_moments.txt"
 
 
-input_file = "./hashcode/d_pet_pictures.txt"
-output_file = "res2.txt"
-process_file(input_file, output_file)
-# print(scoring("res2.txt"))
-print(score_total)
-end_time = time.time()
-elapsed_time = end_time - start_time
-print("Elapsed time: {:02}:{:02}:{:02}".format(int(elapsed_time // 3600), int((elapsed_time % 3600) // 60), int(elapsed_time % 60)))
+def define_hyper_parameter(name):
+    global H_merge, V_merge, Number_of_checks_greedy_H, Number_of_checks_greedy_V
+    # H_merge = 500
+    # V_merge = 500
+    # Number_of_checks_greedy_H = 140 * 2
+    # Number_of_checks_greedy_V = 150
+    # temps_accordé = 30     # Le nombre de secondes qu'on a pour faire tout tourner
+
+    if "b" in name:
+        H_merge = 500
+        V_merge = 0
+        Number_of_checks_greedy_H = 138
+        Number_of_checks_greedy_V = 0
+    elif "d" in name:
+        H_merge = 500
+        V_merge = 500
+        Number_of_checks_greedy_H = 150
+        Number_of_checks_greedy_V = 130
+    elif "e" in name:
+        H_merge = 0
+        V_merge = 500
+        Number_of_checks_greedy_H = 0
+        Number_of_checks_greedy_V = 138
+
+input_path = "./test/"
+for file_name in os.listdir(input_path):
+    if "-0.txt" in file_name:
+        input_file = os.path.join(input_path, file_name)
+        print("Processing ", file_name)
+        output_file = "res2.txt"
+        if "b" in file_name:
+            define_hyper_parameter(file_name)
+            H_merge_possible = [500, 1000, 5000, 10000, 20000, 30000, 40000, 50000]
+            V_merge_possible = [0]
+            Number_of_checks_greedy_H_possible = [Number_of_checks_greedy_H, Number_of_checks_greedy_H * 2, Number_of_checks_greedy_H * 3]
+            Number_of_checks_greedy_V_possible = [0]
+        elif "d" in file_name:
+            define_hyper_parameter(file_name)
+            H_merge_possible = [500, 1000, 5000, 10000, 20000, 30000, 40000, 50000]
+            V_merge_possible = [500, 1000, 5000, 10000, 20000, 30000, 40000, 50000]
+            Number_of_checks_greedy_H_possible = [Number_of_checks_greedy_H, Number_of_checks_greedy_H * 2, Number_of_checks_greedy_H * 3]
+            Number_of_checks_greedy_V_possible = [Number_of_checks_greedy_V, Number_of_checks_greedy_V * 2, Number_of_checks_greedy_V * 3]
+        elif "e" in file_name:
+            define_hyper_parameter(file_name)
+            H_merge_possible = [0]
+            V_merge_possible = [500, 1000, 5000, 10000, 20000, 30000, 40000, 50000]
+            Number_of_checks_greedy_H_possible = [0]
+            Number_of_checks_greedy_V_possible = [Number_of_checks_greedy_V, Number_of_checks_greedy_V * 2, Number_of_checks_greedy_V * 3]
+
+        for Number_of_checks_greedy_H in Number_of_checks_greedy_H_possible:
+            for Number_of_checks_greedy_V in Number_of_checks_greedy_V_possible:
+                for H_merge in H_merge_possible:
+                    for V_merge in V_merge_possible:
+                        start_time = time.time()
+                        print("H_merge = ", H_merge, "Number_check = ", Number_of_checks_greedy_H, "\n input_file = ", input_file)
+                        process_file(input_file, output_file)
+                        print("Total score of ", input_file ," : ", score_total)
+                        print("Finished")
+                        end_time = time.time()
+                        elapsed_time = end_time - start_time
+                        minutes, seconds = divmod(elapsed_time, 60)
+                        milliseconds = (elapsed_time - int(elapsed_time)) * 1000
+                        print(f"Elapsed time: {int(minutes)} minutes, {int(seconds)} seconds, {int(milliseconds)} milliseconds")
+                        with open("./hyper_parameter/res_hyper_" + file_name, "a") as result_file:
+                            result_file.write(f"{H_merge} {V_merge} {Number_of_checks_greedy_H} {Number_of_checks_greedy_V} {score_total} {int(minutes)}:{int(seconds)}:{int(milliseconds)}\n")
+                        
+
+# input_file = "./hyper_parameter/res_hyper_b00100-0.txt"
+# with open(input_file, "r") as f:
+#     lines = f.readlines()
+#     for line in lines:
+#         lines = line.strip().split()
+#         H_merge = int(lines[0])
+#         V_merge = int(lines[1])
+#         Number_of_checks_greedy_H = int(lines[2])
+#         Number_of_checks_greedy_V = int(lines[3])
+#         score_total = int(lines[4])
+#         total_time = lines[5]
+#         minutes, seconds, milliseconds = total_time.split(":")
+#         print("H_merge = ", H_merge, "Number_check = ", Number_of_checks_greedy_H, "Number_check_V = ", Number_of_checks_greedy_V, "score = ", score_total, "time = ", total_time,"time = ", minutes, seconds, milliseconds)
