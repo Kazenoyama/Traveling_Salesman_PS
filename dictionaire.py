@@ -79,7 +79,7 @@ def tags_repition_distrubition():
     plt.show()
 
 
-input_file = "./hyper_parameter/res_hyper_e50000-0.txt"
+input_file = "./hyper_parameter/res_hyper_d50000-0.txt"
 
 def plot_hyper_parameters(input_file):
     file_plot = []
@@ -139,78 +139,78 @@ file_plot = plot_hyper_parameters(input_file)
 
 
 
-# data_by_checks = defaultdict(list)
-# for entry in file_plot:
-#     H_check = entry[2]  # Number_of_checks_greedy_H
-#     V_check = entry[3]  # Number_of_checks_greedy_V
-#     data_by_checks[(H_check, V_check)].append(entry)
-
-# # Plotting H_merge vs. score_total for each (H_check, V_check)
-# plt.figure(figsize=(10, 6))
-
-# for (H_check, V_check), data in data_by_checks.items():
-#     H_merges = [d[0] for d in data]
-#     scores = [d[4] for d in data]
-#     label = f'H_check = {H_check}, V_check = {V_check}'
-#     plt.plot(H_merges, scores, marker='o', label=label)
-
-# plt.xlabel('H_merge')
-# plt.ylabel('Score Total')
-# plt.title('H_merge vs. Score Total for Different H_check and V_check')
-# plt.legend()
-# plt.grid(True)
-# plt.show()
-
-# # Plotting H_merge vs. time (in seconds) for each (H_check, V_check)
-# plt.figure(figsize=(10, 6))
-
-# for (H_check, V_check), data in data_by_checks.items():
-#     H_merges = [d[0] for d in data]
-#     times = [d[5] for d in data]
-#     label = f'H_check = {H_check}, V_check = {V_check}'
-#     plt.plot(H_merges, times, marker='o', label=label)
-
-# plt.xlabel('H_merge')
-# plt.ylabel('Time (seconds)')
-# plt.title('H_merge vs. Time for Different H_check and V_check')
-# plt.legend()
-# plt.grid(True)
-# plt.show()
-
-# Organizing data by Number_of_checks
-data_by_checks = {}
+data_by_checks = defaultdict(list)
 for entry in file_plot:
-    checks = entry[3]  # Number_of_checks_greedy_H (or V)
-    if checks not in data_by_checks:
-        data_by_checks[checks] = []
-    data_by_checks[checks].append(entry)
+    H_check = entry[2]  # Number_of_checks_greedy_H
+    V_check = entry[3]  # Number_of_checks_greedy_V
+    data_by_checks[(H_check, V_check)].append(entry)
 
-# Plotting H_merge vs. score_total for each Number_of_checks
+# Plotting H_merge vs. score_total for each (H_check, V_check)
 plt.figure(figsize=(10, 6))
 
-for checks, data in data_by_checks.items():
-    V_merges = [d[1] for d in data]
+for (H_check, V_check), data in data_by_checks.items():
+    H_merges = [d[1] for d in data]
     scores = [d[4] for d in data]
-    plt.plot(V_merges, scores, marker='o', label=f'Checks = {checks}')
+    label = f'H_check = {H_check}, V_check = {V_check}'
+    plt.plot(H_merges, scores, marker='o', label=label)
 
-plt.xlabel('V_merge')
+plt.xlabel('H_merge')
 plt.ylabel('Score Total')
-plt.title('V_merge and Score Total for Different Numbers of Checks file e')
+plt.title('H_merge vs. Score Total for Different H_check and V_check')
 plt.legend()
 plt.grid(True)
 plt.show()
 
-# Plotting H_merge vs. time (in seconds) for each Number_of_checks
+# Plotting H_merge vs. time (in seconds) for each (H_check, V_check)
 plt.figure(figsize=(10, 6))
 
-for checks, data in data_by_checks.items():
-    V_merges = [d[1] for d in data]
+for (H_check, V_check), data in data_by_checks.items():
+    H_merges = [d[1] for d in data]
     times = [d[5] for d in data]
-    plt.plot(V_merges, times, marker='o', label=f'Checks = {checks}')
+    label = f'H_check = {H_check}, V_check = {V_check}'
+    plt.plot(H_merges, times, marker='o', label=label)
 
-plt.xlabel('V_merge')
+plt.xlabel('H_merge')
 plt.ylabel('Time (seconds)')
-plt.title('V_merge and total time for Different Numbers of Checks file e')
+plt.title('H_merge vs. Time for Different H_check and V_check')
 plt.legend()
 plt.grid(True)
 plt.show()
+
+# # Organizing data by Number_of_checks
+# data_by_checks = {}
+# for entry in file_plot:
+#     checks = entry[3]  # Number_of_checks_greedy_H (or V)
+#     if checks not in data_by_checks:
+#         data_by_checks[checks] = []
+#     data_by_checks[checks].append(entry)
+
+# # Plotting H_merge vs. score_total for each Number_of_checks
+# plt.figure(figsize=(10, 6))
+
+# for checks, data in data_by_checks.items():
+#     V_merges = [d[1] for d in data]
+#     scores = [d[4] for d in data]
+#     plt.plot(V_merges, scores, marker='o', label=f'Checks = {checks}')
+
+# plt.xlabel('V_merge')
+# plt.ylabel('Score Total')
+# plt.title('V_merge and Score Total for Different Numbers of Checks file e')
+# plt.legend()
+# plt.grid(True)
+# plt.show()
+
+# # Plotting H_merge vs. time (in seconds) for each Number_of_checks
+# plt.figure(figsize=(10, 6))
+
+# for checks, data in data_by_checks.items():
+#     V_merges = [d[1] for d in data]
+#     times = [d[5] for d in data]
+#     plt.plot(V_merges, times, marker='o', label=f'Checks = {checks}')
+
+# plt.xlabel('V_merge')
+# plt.ylabel('Time (seconds)')
+# plt.title('V_merge and total time for Different Numbers of Checks file e')
+# plt.legend()
+# plt.grid(True)
+# plt.show()
