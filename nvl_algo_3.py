@@ -8,14 +8,12 @@ nbr_lines = 0
 #parametres
 H_merge = 500
 V_merge = 500
-Number_of_checks_greedy_H = 2
-Number_of_checks_greedy_V = 2
+Number_of_checks_greedy_H = 10000
+Number_of_checks_greedy_V = 10000
 
-temps_accordé = 30      # Le nombre de secondes qu'on a pour faire tout tourner
+temps_accordé = 60      # Le nombre de secondes qu'on a pour faire tout tourner
 ratio_quand_faire_gloutonne_pour_V = 0       #0.00034      #  nombre total de mots differents / nombre total de mots
 combien_permutations_par_ligne_h_localsearch = 10000 # le nombre de permutations qu'on tente pour chaque ligne h (à partir de la fin)
-
-
 
 def calculate_word_ratio_v_lines(input_file):
     """
@@ -47,7 +45,6 @@ def calculate_word_ratio_v_lines(input_file):
     if len(unique_words) == 0:  # Éviter la division par zéro
         return 0.0
     return len(unique_words) / total_words
-
 
 def correct_form(file_path):
     try:
@@ -88,7 +85,6 @@ def correct_form(file_path):
         print(f"Erreur lors de la lecture du fichier : {e}")
         return False
  
-
 def scoring(file_path):
     print("Scoring : ", file_path)
     with open(file_path, 'r') as file:
@@ -135,7 +131,6 @@ def scoring(file_path):
 
     return score_total
     
-
 def scoring2(ligne1, ligne2):
     # print("Scoring : ", ligne1, ligne2)
     set1 = ligne1.strip().split()[3:]
@@ -152,7 +147,6 @@ def scoring2(ligne1, ligne2):
     score_ligne = min(communs, unique1, unique2)
 
     return score_ligne
-
 
 def process_file(input_path, output_path):
     global nbr_lines, score_total
@@ -350,7 +344,6 @@ def process_file(input_path, output_path):
             # Mettre à jour le dernier groupe traité
             last_line = combined_line
 
-
 def combine_v_group(group):
     """
     Combine les mots de plusieurs lignes V dans un groupe.
@@ -374,7 +367,6 @@ def merge_v_group(group):
     for line in group:
         merged_words.update(line.split()[3:])
     return f"V {group_sum} " + " ".join(merged_words)
-
 
 def process_h_lines_greedy(h_lines):
     global nbr_lines
@@ -440,8 +432,6 @@ def process_h_lines_greedy(h_lines):
 
     return ordered_lines
 
-
-
 def process_v_lines_greedy(v_lines):
     
     # Regrouper par numéro
@@ -504,8 +494,6 @@ def process_v_lines_greedy(v_lines):
 
     return ordered_lines
 
-
-
 def calculate_score(line1, line2):
     """
     Calcule le score entre deux lignes (H ou V).
@@ -514,7 +502,6 @@ def calculate_score(line1, line2):
     words2 = set(line2.split()[3:])
     communs = len(words1 & words2)
     return communs
-
 
 def local_search_h_with_param(ordered_lines, n, tmps):
     """
@@ -581,19 +568,59 @@ def local_search_h_with_param(ordered_lines, n, tmps):
     # Retourner l'ordre optimal des lignes
     return best_order
 
-
-
-
-
 # Utilisation de la fonction
 # input_file = "c_memorable_moments.txt"
 
+def decideParameter(nameFile, time):
+    global H_merge, V_merge, Number_of_checks_greedy_H, Number_of_checks_greedy_V, temps_accordé, ratio_quand_faire_gloutonne_pour_V, combien_permutations_par_ligne_h_localsearch
+    if "b" in nameFile and any(char.isdigit() for char in nameFile.split("b")[1]):
+        H_merge = 500
+        V_merge = 0
+        Number_of_checks_greedy_H = 138
+        Number_of_checks_greedy_V = 0
+        temps_accordé = time
+        ratio_quand_faire_gloutonne_pour_V = 0
+        combien_permutations_par_ligne_h_localsearch = 10000
+    elif "d" in nameFile and any(char.isdigit() for char in nameFile.split("d")[1]):
+        H_merge = 500
+        V_merge = 500
+        Number_of_checks_greedy_H = 150
+        Number_of_checks_greedy_V = 130
+        temps_accordé = time
+        ratio_quand_faire_gloutonne_pour_V = 0.00034
+        combien_permutations_par_ligne_h_localsearch = 10000
+    elif "e" in nameFile and any(char.isdigit() for char in nameFile.split("e")[1]):
+        H_merge = 0
+        V_merge = 500
+        Number_of_checks_greedy_H = 0
+        Number_of_checks_greedy_V = 150
+        temps_accordé = time
+        ratio_quand_faire_gloutonne_pour_V = 0.00034
+        combien_permutations_par_ligne_h_localsearch = 10000
 
-input_file = "./hashcode/d_pet_pictures.txt"
+    with open(nameFile, 'r') as file:
+        first_line = file.readline().strip()
+        try:
+            first_line_int = int(first_line)
+            print(f"The first line as integer: {first_line_int}")
+            if first_line_int <= 1000:
+                Number_of_checks_greedy_H = first_line_int
+                Number_of_checks_greedy_V = first_line_int
+                H_merge = first_line_int
+                V_merge = first_line_int
+        except ValueError:
+            print("The first line is not a valid integer.")
+
+input_file = "./test/b10000-0.txt"
 output_file = "res2.txt"
+start_time = time.time()
+decideParameter(input_file, 60)
+print("H_merge : ", H_merge, "V_merge: ", V_merge, "Number_of_checks_greedy_H: ", Number_of_checks_greedy_H, "Number_of_checks_greedy_V: ", Number_of_checks_greedy_V, "temps_accordé: ", temps_accordé, "ratio_quand_faire_gloutonne_pour_V: ", ratio_quand_faire_gloutonne_pour_V, "combien_permutations_par_ligne_h_localsearch: ", combien_permutations_par_ligne_h_localsearch) 
 process_file(input_file, output_file)
 # print(scoring("res2.txt"))
 print(score_total)
 end_time = time.time()
 elapsed_time = end_time - start_time
 print("Elapsed time: {:02}:{:02}:{:02}".format(int(elapsed_time // 3600), int((elapsed_time % 3600) // 60), int(elapsed_time % 60)))
+
+
