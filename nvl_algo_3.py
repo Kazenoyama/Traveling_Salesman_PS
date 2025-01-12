@@ -1,3 +1,4 @@
+import io
 import time
 
 start_time = time.time()
@@ -18,8 +19,8 @@ def calculate_word_ratio_v_lines(input_file):
     :return: Rapport (float) entre le nombre total de mots et le nombre total de mots différents
              pour les lignes 'V'.
     """
-    with open(input_file, "r") as f:
-        lines = f.read().strip().split("\n")
+    #with open(input_file, "r") as f:
+    lines = input_file.read().strip().split("\n")
     
     # Extraire les lignes de contenu (en ignorant la première ligne)
     lines = lines[1:]
@@ -76,13 +77,13 @@ def correct_form(file_path):
         
         return True  # valide
     except Exception as e:
-        print(f"Erreur lors de la lecture du fichier : {e}")
+        #print(f"Erreur lors de la lecture du fichier : {e}")
         return False
  
 def scoring(file_path):
-    print("Scoring : ", file_path)
-    with open(file_path, 'r') as file:
-        lines = file.readlines()
+    #print("Scoring : ", file_path)
+    #with open(file_path, 'r') as file:
+    lines = file_path.readlines()
     # Liste pour stocker les mots avec les doublons
     word_lists = []
     i = 1  # Commencer après la première ligne (nombre total)
@@ -142,11 +143,22 @@ def scoring2(ligne1, ligne2):
 
     return score_ligne
 
+def afficher_contenu_fichier(chemin_fichier):
+    chemin_fichier.seek(0)
+    try:
+        #with open(chemin_fichier, 'r', encoding='utf-8') as fichier:
+        for ligne in chemin_fichier:
+            print(ligne, end='')  # Utilisation de end='' pour éviter les sauts de ligne supplémentaires
+    except FileNotFoundError:
+        print(f"Erreur : Le fichier '{chemin_fichier}' est introuvable.")
+    except Exception as e:
+        print(f"Erreur : {e}")
+
 def process_file(input_path, output_path):
     global nbr_lines, score_total
 
-    with open(input_path, 'r') as file:
-        lines = file.readlines()
+    
+    lines = input_path.readlines()
 
     h_lines = []
     v_lines = []
@@ -155,9 +167,9 @@ def process_file(input_path, output_path):
     for idx, line in enumerate(lines):
         line = line.strip()
         if line.startswith("H"):
-            h_lines.append(f"{idx} {line}")
+            h_lines.append(f"{idx-1} {line}")
         elif line.startswith("V"):
-            v_lines.append(f"{idx} {line}")
+            v_lines.append(f"{idx-1} {line}")
 
     # Tri des lignes H en ordre croissant par leur nombre avec approche gloutonne
     h_lines = process_h_lines_greedy(h_lines)
@@ -165,8 +177,8 @@ def process_file(input_path, output_path):
     # V
     if (len(v_lines) >= 2):
 
-        ratio = calculate_word_ratio_v_lines(input_file)
-        print(ratio)
+        ratio = calculate_word_ratio_v_lines(input_path)
+        #print(ratio)
 
         if (ratio < ratio_quand_faire_gloutonne_pour_V):    # on fait le greedy pour les V et on combine avec nouvelle technique
             v_lines = process_v_lines_greedy(v_lines)
@@ -311,32 +323,37 @@ def process_file(input_path, output_path):
 
 
     # Écriture dans le fichier de sortie
-    with open(input_path, 'r') as file:
-        lines = file.readlines()
+    #with open(input_path, 'r') as file:
+    lines = input_path.readlines()
 
-    with open(output_path, 'w') as output_file:
-        first_line = lines[0].strip()
-        output_file.write(str(nbr_lines) + '\n')
-        
-        last_line = None
-        # Écriture des lignes H
-        for h_line in h_lines:
-            output_file.write(h_line.split()[0] + '\n')
-            if (last_line != None):
-                score_total += scoring2(h_line, last_line)
-            last_line = h_line
+    #with open(output_path, 'w') as output_file:
+    afficher_contenu_fichier(input_path)
+    #first_line = lines[0].strip()
+    #output_file.write(str(nbr_lines) + '\n')
+    print("")
+    print(str(nbr_lines))
+    
+    last_line = None
+    # Écriture des lignes H
+    for h_line in h_lines:
+        #output_file.write(h_line.split()[0] + '\n')
+        print(h_line.split()[0])
+        if (last_line != None):
+            score_total += scoring2(h_line, last_line)
+        last_line = h_line
 
-        for group in final_v_order:
-            # Combiner les lignes d'un groupe en fusionnant les mots
-            combined_line = combine_v_group(group)
-            output_file.write(" ".join(line.split()[0] for line in group) + '\n')
+    for group in final_v_order:
+        # Combiner les lignes d'un groupe en fusionnant les mots
+        combined_line = combine_v_group(group)
+        #output_file.write(" ".join(line.split()[0] for line in group) + '\n')
+        print(" ".join(line.split()[0] for line in group))
 
-            # Calculer le score entre le groupe précédent et le groupe courant
-            if last_line is not None:
-                score_total += scoring2(combined_line, last_line)
+        # Calculer le score entre le groupe précédent et le groupe courant
+        if last_line is not None:
+            score_total += scoring2(combined_line, last_line)
 
-            # Mettre à jour le dernier groupe traité
-            last_line = combined_line
+        # Mettre à jour le dernier groupe traité
+        last_line = combined_line
 
 def combine_v_group(group):
     """
@@ -565,11 +582,11 @@ def local_search_h_with_param(ordered_lines, n, tmps):
 # Utilisation de la fonction
 # input_file = "c_memorable_moments.txt"
 
-def decideParameter(nameFile, time):
+def decideParameter(input_file, nameFile, time):
     global H_merge, V_merge, Number_of_checks_greedy_H, Number_of_checks_greedy_V, temps_accordé, ratio_quand_faire_gloutonne_pour_V, combien_permutations_par_ligne_h_localsearch
-    print(nameFile)
+    #print(nameFile)
     onlyName = nameFile.split("/")[-1]
-    print(onlyName)
+    #print(onlyName)
     if "b" in onlyName:
         H_merge = 500
         V_merge = 0
@@ -595,110 +612,215 @@ def decideParameter(nameFile, time):
         ratio_quand_faire_gloutonne_pour_V = 0.00034
         combien_permutations_par_ligne_h_localsearch = 10000
 
-    with open(nameFile, 'r') as file:
-        first_line = file.readline().strip()
-        try:
-            first_line_int = int(first_line)
-            # print(f"The first line as integer: {first_line_int}")
-            if first_line_int <= 1000:
-                Number_of_checks_greedy_H = first_line_int
-                Number_of_checks_greedy_V = first_line_int
-                H_merge = first_line_int
-                V_merge = first_line_int
-            else:
-                # print("The first line is greater than 1000.")
-                if 'b' in onlyName:
-                    if first_line_int >= 50000 :
-                        H_merge = first_line_int // 3
-                        Number_of_checks_greedy_H = 120 * (temps_accordé //20)
-                    elif first_line_int >= 25000:
-                        H_merge = first_line_int // 3
-                        Number_of_checks_greedy_H = Number_of_checks_greedy_H * (temps_accordé // 11)
-                    elif first_line_int >= 10000:
-                        H_merge = first_line_int // 3
-                        Number_of_checks_greedy_H = Number_of_checks_greedy_H * (temps_accordé // 4)
-                    elif first_line_int >= 5000:
-                        H_merge = first_line_int // 3
-                        Number_of_checks_greedy_H = Number_of_checks_greedy_H * (temps_accordé // 3)
+    #with input_file as file:
+    input_stream.seek(0)
+    first_line = input_file.readline().strip()
+    try:
+        first_line_int = int(first_line)
+        # print(f"The first line as integer: {first_line_int}")
+        if first_line_int <= 1000:
+            Number_of_checks_greedy_H = first_line_int
+            Number_of_checks_greedy_V = first_line_int
+            H_merge = first_line_int
+            V_merge = first_line_int
+        else:
+            # print("The first line is greater than 1000.")
+            if 'b' in onlyName:
+                if first_line_int >= 50000 :
+                    H_merge = first_line_int // 3
+                    Number_of_checks_greedy_H = 120 * (temps_accordé //20)
+                elif first_line_int >= 25000:
+                    H_merge = first_line_int // 3
+                    Number_of_checks_greedy_H = Number_of_checks_greedy_H * (temps_accordé // 11)
+                elif first_line_int >= 10000:
+                    H_merge = first_line_int // 3
+                    Number_of_checks_greedy_H = Number_of_checks_greedy_H * (temps_accordé // 4)
+                elif first_line_int >= 5000:
+                    H_merge = first_line_int // 3
+                    Number_of_checks_greedy_H = Number_of_checks_greedy_H * (temps_accordé // 3)
 
-                elif 'd' in onlyName:
-                    if first_line_int >= 50000 :
-                        H_merge = first_line_int // 3
-                        V_merge = first_line_int // 3
-                        Number_of_checks_greedy_H = Number_of_checks_greedy_H * (temps_accordé // 15)
-                        Number_of_checks_greedy_V = Number_of_checks_greedy_V * (temps_accordé // 30)
-                    elif first_line_int >= 25000:
-                        H_merge = first_line_int // 3
-                        V_merge = first_line_int // 3
-                        Number_of_checks_greedy_H = Number_of_checks_greedy_H * (temps_accordé // 7)
-                        Number_of_checks_greedy_V = Number_of_checks_greedy_V * (temps_accordé // 15)
-                    elif first_line_int >= 10000:
-                        H_merge = first_line_int // 3
-                        V_merge = first_line_int // 3
-                        Number_of_checks_greedy_H = Number_of_checks_greedy_H * (temps_accordé // 3)
-                        Number_of_checks_greedy_V = Number_of_checks_greedy_V * (temps_accordé // 6)
-                    elif first_line_int >= 5000:
-                        H_merge = first_line_int // 3
-                        V_merge = first_line_int // 3
-                        Number_of_checks_greedy_H = Number_of_checks_greedy_H * (temps_accordé // 2)
-                        Number_of_checks_greedy_V = Number_of_checks_greedy_V * (temps_accordé // 3)
+            elif 'd' in onlyName:
+                if first_line_int >= 50000 :
+                    H_merge = first_line_int // 3
+                    V_merge = first_line_int // 3
+                    Number_of_checks_greedy_H = Number_of_checks_greedy_H * (temps_accordé // 15)
+                    Number_of_checks_greedy_V = Number_of_checks_greedy_V * (temps_accordé // 30)
+                elif first_line_int >= 25000:
+                    H_merge = first_line_int // 3
+                    V_merge = first_line_int // 3
+                    Number_of_checks_greedy_H = Number_of_checks_greedy_H * (temps_accordé // 7)
+                    Number_of_checks_greedy_V = Number_of_checks_greedy_V * (temps_accordé // 15)
+                elif first_line_int >= 10000:
+                    H_merge = first_line_int // 3
+                    V_merge = first_line_int // 3
+                    Number_of_checks_greedy_H = Number_of_checks_greedy_H * (temps_accordé // 3)
+                    Number_of_checks_greedy_V = Number_of_checks_greedy_V * (temps_accordé // 6)
+                elif first_line_int >= 5000:
+                    H_merge = first_line_int // 3
+                    V_merge = first_line_int // 3
+                    Number_of_checks_greedy_H = Number_of_checks_greedy_H * (temps_accordé // 2)
+                    Number_of_checks_greedy_V = Number_of_checks_greedy_V * (temps_accordé // 3)
 
-                elif 'e' in onlyName:
-                    if first_line_int >= 50000 :
-                        V_merge = first_line_int // 3
-                        Number_of_checks_greedy_V = Number_of_checks_greedy_V * (temps_accordé //30)
-                    elif first_line_int >= 25000:
-                        V_merge = first_line_int // 3
-                        Number_of_checks_greedy_V = Number_of_checks_greedy_V * (temps_accordé // 15)
-                    elif first_line_int >= 10000:
-                        V_merge = first_line_int // 3
-                        Number_of_checks_greedy_V = Number_of_checks_greedy_V * (temps_accordé // 6)
-                    elif first_line_int >= 5000:
-                        V_merge = first_line_int // 3
-                        Number_of_checks_greedy_V = Number_of_checks_greedy_V * (temps_accordé // 3)
+            elif 'e' in onlyName:
+                if first_line_int >= 50000 :
+                    V_merge = first_line_int // 3
+                    Number_of_checks_greedy_V = Number_of_checks_greedy_V * (temps_accordé //30)
+                elif first_line_int >= 25000:
+                    V_merge = first_line_int // 3
+                    Number_of_checks_greedy_V = Number_of_checks_greedy_V * (temps_accordé // 15)
+                elif first_line_int >= 10000:
+                    V_merge = first_line_int // 3
+                    Number_of_checks_greedy_V = Number_of_checks_greedy_V * (temps_accordé // 6)
+                elif first_line_int >= 5000:
+                    V_merge = first_line_int // 3
+                    Number_of_checks_greedy_V = Number_of_checks_greedy_V * (temps_accordé // 3)
 
 
 
-        except ValueError:
-            print("The first line is not a valid integer.")
+    except ValueError:
+        print("The first line is not a valid integer.")
 
     
 
-def doTheFile(input_file,output_file, timeMax):
+def doTheFile(input_file,output_file, timeMax, input_file_name):
     global score_total
     start_time = time.time()
     
-    decideParameter(input_file, timeMax)
-    print("Parameters: ", H_merge, V_merge, Number_of_checks_greedy_H, Number_of_checks_greedy_V, temps_accordé, ratio_quand_faire_gloutonne_pour_V, combien_permutations_par_ligne_h_localsearch)
+    decideParameter(input_file, input_file_name, timeMax)
+    input_file.seek(0)
+    #print("Parameters: ", H_merge, V_merge, Number_of_checks_greedy_H, Number_of_checks_greedy_V, temps_accordé, ratio_quand_faire_gloutonne_pour_V, combien_permutations_par_ligne_h_localsearch)
     process_file(input_file, output_file)
-    print(score_total)
+    input_file.seek(0)
+    #print(score_total)
     score_total =0
     end_time = time.time()
     elapsed_time = end_time - start_time
-    print("Elapsed time: {:02}:{:02}:{:02}".format(int(elapsed_time // 3600), int((elapsed_time % 3600) // 60), int(elapsed_time % 60)))
+    #print("Elapsed time: {:02}:{:02}:{:02}".format(int(elapsed_time // 3600), int((elapsed_time % 3600) // 60), int(elapsed_time % 60)))
 
 
 
 
-input_file = "./test/d05000-0.txt"
+#input_file = "./test/e00100-0.txt"
+input_file_name = "d00100-1.txt"
+content = """100
+V 9 t34 t87 tc4 tm2 t37 ts2 tq6 tq1 tx
+H 10 tq2 tz2 tw5 tq6 tm2 th5 tc4 tz6 t34 t52
+V 6 tw3 t44 tc4 tq1 tw5 tp2
+V 4 tf1 th tf tl1
+V 13 t02 tb3 t52 t87 tq2 tz4 tq1 tc4 tf tr5 tk3 tc5 tk1
+V 7 tw3 tl3 t05 tr1 tl5 tf1 tb7
+V 14 tp6 t82 tl5 t52 t8 t94 tr2 tz6 th4 tn6 tb5 tr5 t47 tx2
+V 10 th5 td4 tp6 tl5 tc5 th tv2 tx1 tw5 tk3
+V 12 t05 td2 tn6 tw5 tq2 tb5 t37 tq6 t52 tq4 tc5 th6
+V 5 tz2 tw5 tq6 tb6 t52
+H 13 tb7 th5 tf1 t87 t72 td1 tq1 tr5 tz4 tl5 th6 tv2 t86
+V 7 t51 tn6 t85 td2 t53 tq4 t75
+H 14 t05 t02 tn6 t47 t01 t62 t37 t6 tg tm2 tr5 t34 th4 t87
+H 3 tl2 t01 tp6
+V 11 tc4 tz2 tq1 t86 t34 t6 tm2 tz tq5 tv2 tq6
+V 7 tl5 tk1 td4 t52 tc4 t01 t05
+V 13 tx2 tn3 tm2 th4 tf1 t47 tp3 td4 t34 tp2 t52 tz2 tz6
+V 13 t85 tq2 tz6 tr3 tx4 t86 tj5 tx1 t8 t56 tr5 t93 tq6
+V 9 t53 t86 ts2 tc5 tl5 t85 t02 tq1 tp6
+V 3 th5 tl2 tx1
+V 7 t02 tb7 th4 t86 th tz6 tx1
+V 18 td4 tz6 tb5 tq2 tc4 tb7 tz tq3 t42 tv2 tl5 t8 tn6 th4 tm2 t05 tc5 t02
+H 13 t82 t01 tb5 th5 t05 ts2 t47 t34 tq1 tm5 tb t53 tc4
+V 6 t53 tc4 t74 tz2 t52 t34
+V 13 t05 tz4 t94 tm5 t31 t86 tq6 tr5 t42 t85 tq1 t34 t82
+H 9 tp6 tz2 t01 t53 t82 tz4 t31 td2 t05
+V 14 th6 tf1 tc5 t52 tz5 t56 tf4 t47 t53 tl5 tw3 th tp2 th5
+V 4 tv2 t87 t85 th6
+V 3 t42 t74 t64
+V 4 tx1 t87 tw3 t02
+V 12 tz3 tf1 tv2 tc5 tk1 tq2 tk5 th6 t86 t47 t02 th5
+V 14 t91 tm2 t87 tc4 tw3 tz4 tl2 th t86 tk1 tn6 tc5 t02 td4
+V 15 tm tn6 t86 ts2 tz2 tc4 tx tc tc2 t94 t6 t53 t34 tb7 t44
+H 10 tb5 td4 tp6 tf t82 th6 tp1 t86 th4 tz6
+H 14 tp6 tx1 t02 tq2 tw4 tz6 tr2 th5 tm2 t56 t52 tc5 tw5 t87
+H 3 tw1 tq2 th
+H 13 t82 th6 t47 tc4 tj5 th5 ts2 tj4 tz4 tw6 t53 tn3 t34
+H 9 tn1 tb5 tp2 t13 t02 t51 tl3 tx1 tf4
+H 7 tc4 tw5 tl5 tz5 th5 t52 tp6
+H 3 t82 tb2 t44
+V 15 t82 tq6 t52 tp6 t85 tw3 t53 tf1 t87 tn3 tc1 tb5 tq1 tr6 t05
+H 10 th t94 tm5 t01 t7 tc tp2 t47 t87 tl3
+V 9 tc1 t52 tm2 td4 ts2 tn6 tk1 th5 tr5
+V 13 tx2 tl5 t01 t61 tr5 tb7 t02 tf1 td4 tz3 th5 tm2 t47
+V 5 tp2 tb5 tb7 tc4 tw5
+H 10 ts2 tk1 td4 t34 tj3 t53 tc4 tp6 tz4 t05
+H 10 td4 t12 tc5 tr5 t86 t34 tq6 td5 t94 tf1
+V 9 th6 t05 t87 tw5 tr5 td4 tz6 th4 t86
+V 10 tl t6 tf1 t02 tq1 t74 tv3 t01 t47 th6
+V 14 t02 t82 t53 tc5 tw3 tp2 t01 t8 th5 tg6 tc2 tz4 t87 tm2
+V 5 tq1 t46 t44 tc tz2
+H 14 t6 t87 th6 tb6 t86 tn5 tz2 t02 t47 tx1 t61 th5 t34 tj4
+V 9 t53 tz4 t82 tc5 t8 t05 t85 tj5 tf2
+V 12 t74 tn6 t6 tb5 tm2 tn3 t85 t47 t05 t02 tl5 tw5
+H 8 t56 tp2 tf2 tz2 t94 td4 t87 tm2
+V 4 t86 tf2 ts2 t52
+V 13 t87 tz6 tw3 tm2 tx2 t05 tb7 td4 tn6 t01 tq1 tr5 tp2
+V 5 tc5 th4 tb7 ts2 t52
+V 14 t94 tb7 tw3 td4 tm2 th5 tq6 t72 tj4 tx1 t91 tq1 t47 t26
+V 5 th6 td1 t01 t33 tq3
+V 10 t86 t52 tz6 t34 t51 tq2 tp6 tq6 t42 th4
+V 5 t01 t53 t34 t42 t37
+V 14 tl3 tf tp6 t86 t47 tp2 t01 tz6 t87 tq1 tc4 tm2 tw5 tb5
+H 17 t56 tl5 t52 t86 t34 tr2 tz6 tr5 td6 tq6 th6 tw5 tp2 t61 t02 th5 t42
+V 3 th5 tw3 th4
+H 14 t57 t52 t51 th4 tp2 tc5 th6 tw3 t6 t05 tb5 tn3 tx4 tq1
+V 7 tx t86 t8 tz4 tz2 tr6 th5
+V 10 td4 t85 tc5 t52 t31 tj5 tz6 tq3 t93 t87
+V 9 tz2 t47 t82 th6 tc1 t02 t86 ts2 tx1
+V 6 t93 tx1 th6 tl5 t86 t53
+V 7 t91 tz4 th6 tc3 tz6 t01 td4
+V 3 tc5 th4 tp6
+H 14 t01 tq6 tf1 th5 tb7 t05 tq1 tw3 t86 t87 ts4 th2 t6 tl2
+V 4 t47 tq1 t87 tz6
+H 17 th5 tz6 ts2 tz4 t6 t05 tq4 tl5 tq2 t86 th6 tq6 tc4 th4 tq3 tc1 tc5
+H 15 t53 tw5 t47 tz4 tw4 tx1 th6 th4 tc5 tr1 tl4 t01 tp2 tq1 t87
+H 7 t53 t2 tb7 tw th5 tb5 t87
+V 13 td6 tq2 t61 tv4 tw5 tx tb5 t31 ts2 tp tq1 tw1 t87
+V 5 t05 t74 t42 tf1 tr5
+H 8 th5 tm tr6 t74 tl5 t52 tz2 tm2
+V 7 tr5 td4 tz6 t87 tm2 t6 tl5
+H 16 tz4 tb5 tn6 t6 tw3 tq2 th4 tw tc5 t02 t51 tc4 tl5 tr5 t32 t93
+H 3 t85 t44 tz6
+V 17 tc4 tf1 tz2 t51 t74 t93 tz4 th5 tq2 t87 th6 tq6 t75 tb5 tb1 tw4 t01
+V 9 tz4 tp t21 tm5 t87 tp2 tx1 t6 tr6
+H 14 tf1 tz6 th4 tl5 t6 tm5 tc tc5 tq2 tc4 tz2 tk3 t47 t37
+V 12 tv3 th6 tn6 tc4 tp6 t82 tq2 td4 tk5 tj4 tm2 tq1
+V 17 tc4 td4 t31 tq2 tl5 tr5 t3 tb5 tz6 tq1 t82 tf1 th4 t87 tw5 t47 tn6
+H 5 td4 t47 tl5 t44 ts2
+V 15 tn6 t05 td4 t22 t37 t34 tp6 tq1 tm5 tq6 tb tr5 tm2 t86 t53
+V 3 tf1 tc5 tv3
+V 10 ts2 t61 t87 tw2 tp2 tp6 t34 t53 t52 t91
+V 12 t93 tc4 tw3 tb1 tv2 tl3 tz5 t01 t87 tl5 t44 tz2
+V 12 t53 t85 tr5 t6 tb5 th6 tx1 tp6 t87 tf2 t82 t86
+H 14 tc4 t52 tw5 t02 t01 tq2 tm2 t47 t86 tx1 tq6 t87 tl5 tb7
+V 9 t02 th2 tq2 tq6 t86 tw5 ts4 tg2 t01
+V 4 tp3 tr5 tq5 t01
+V 6 t61 tq1 tz6 td4 tq2 tq3
+V 5 tp6 tn6 tr5 t93 tb7
+V 6 tc4 tc5 tx1 tr t22 tb5""" 
+
+input_stream = io.StringIO(content)
+# Écriture du contenu dans un fichier
+#with open(input_file_name, "w") as file:
+#    file.write(content.strip())
+
+# Lecture et utilisation du fichier
+#with open(input_file_name, "r") as file:
+#    lines = file.readlines()
+
+# Afficher les lignes lues
+#for line in lines:
+#    print(line.strip())
+
 output_file = "res2.txt"
-doTheFile(input_file, output_file, 60)
+doTheFile(input_stream, output_file, 20, input_file_name)
 
-input_file = "./test/d05000-1.txt"
-output_file = "res2.txt"
-doTheFile(input_file, output_file, 60)
 
-input_file = "./test/d05000-2.txt"
-output_file = "res2.txt"
-doTheFile(input_file, output_file, 60)
-
-input_file = "./test/d05000-3.txt"
-output_file = "res2.txt"
-doTheFile(input_file, output_file, 60)
-
-input_file = "./test/d05000-4.txt"
-output_file = "res2.txt"
-doTheFile(input_file, output_file, 60)
 
 
 
