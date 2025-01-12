@@ -5,12 +5,6 @@ start_time = time.time()
 score_total = 0
 nbr_lines = 0
 
-#parametres
-H_merge = 500
-V_merge = 500
-Number_of_checks_greedy_H = 10000
-Number_of_checks_greedy_V = 10000
-
 temps_accordé = 60      # Le nombre de secondes qu'on a pour faire tout tourner
 ratio_quand_faire_gloutonne_pour_V = 0       #0.00034      #  nombre total de mots differents / nombre total de mots
 combien_permutations_par_ligne_h_localsearch = 10000 # le nombre de permutations qu'on tente pour chaque ligne h (à partir de la fin)
@@ -573,7 +567,10 @@ def local_search_h_with_param(ordered_lines, n, tmps):
 
 def decideParameter(nameFile, time):
     global H_merge, V_merge, Number_of_checks_greedy_H, Number_of_checks_greedy_V, temps_accordé, ratio_quand_faire_gloutonne_pour_V, combien_permutations_par_ligne_h_localsearch
-    if "b" in nameFile and any(char.isdigit() for char in nameFile.split("b")[1]):
+    print(nameFile)
+    onlyName = nameFile.split("/")[-1]
+    print(onlyName)
+    if "b" in onlyName:
         H_merge = 500
         V_merge = 0
         Number_of_checks_greedy_H = 138
@@ -581,19 +578,19 @@ def decideParameter(nameFile, time):
         temps_accordé = time
         ratio_quand_faire_gloutonne_pour_V = 0
         combien_permutations_par_ligne_h_localsearch = 10000
-    elif "d" in nameFile and any(char.isdigit() for char in nameFile.split("d")[1]):
+    elif "d" in onlyName:
         H_merge = 500
         V_merge = 500
-        Number_of_checks_greedy_H = 150
-        Number_of_checks_greedy_V = 130
+        Number_of_checks_greedy_H = 138
+        Number_of_checks_greedy_V = 115
         temps_accordé = time
-        ratio_quand_faire_gloutonne_pour_V = 0.00034
+        ratio_quand_faire_gloutonne_pour_V = 0
         combien_permutations_par_ligne_h_localsearch = 10000
-    elif "e" in nameFile and any(char.isdigit() for char in nameFile.split("e")[1]):
+    elif "e" in onlyName:
         H_merge = 0
         V_merge = 500
         Number_of_checks_greedy_H = 0
-        Number_of_checks_greedy_V = 150
+        Number_of_checks_greedy_V = 115
         temps_accordé = time
         ratio_quand_faire_gloutonne_pour_V = 0.00034
         combien_permutations_par_ligne_h_localsearch = 10000
@@ -602,25 +599,109 @@ def decideParameter(nameFile, time):
         first_line = file.readline().strip()
         try:
             first_line_int = int(first_line)
-            print(f"The first line as integer: {first_line_int}")
+            # print(f"The first line as integer: {first_line_int}")
             if first_line_int <= 1000:
                 Number_of_checks_greedy_H = first_line_int
                 Number_of_checks_greedy_V = first_line_int
                 H_merge = first_line_int
                 V_merge = first_line_int
+            else:
+                # print("The first line is greater than 1000.")
+                if 'b' in onlyName:
+                    if first_line_int >= 50000 :
+                        H_merge = first_line_int // 3
+                        Number_of_checks_greedy_H = 120 * (temps_accordé //20)
+                    elif first_line_int >= 25000:
+                        H_merge = first_line_int // 3
+                        Number_of_checks_greedy_H = Number_of_checks_greedy_H * (temps_accordé // 11)
+                    elif first_line_int >= 10000:
+                        H_merge = first_line_int // 3
+                        Number_of_checks_greedy_H = Number_of_checks_greedy_H * (temps_accordé // 4)
+                    elif first_line_int >= 5000:
+                        H_merge = first_line_int // 3
+                        Number_of_checks_greedy_H = Number_of_checks_greedy_H * (temps_accordé // 3)
+
+                elif 'd' in onlyName:
+                    if first_line_int >= 50000 :
+                        H_merge = first_line_int // 3
+                        V_merge = first_line_int // 3
+                        Number_of_checks_greedy_H = Number_of_checks_greedy_H * (temps_accordé // 15)
+                        Number_of_checks_greedy_V = Number_of_checks_greedy_V * (temps_accordé // 30)
+                    elif first_line_int >= 25000:
+                        H_merge = first_line_int // 3
+                        V_merge = first_line_int // 3
+                        Number_of_checks_greedy_H = Number_of_checks_greedy_H * (temps_accordé // 7)
+                        Number_of_checks_greedy_V = Number_of_checks_greedy_V * (temps_accordé // 15)
+                    elif first_line_int >= 10000:
+                        H_merge = first_line_int // 3
+                        V_merge = first_line_int // 3
+                        Number_of_checks_greedy_H = Number_of_checks_greedy_H * (temps_accordé // 3)
+                        Number_of_checks_greedy_V = Number_of_checks_greedy_V * (temps_accordé // 6)
+                    elif first_line_int >= 5000:
+                        H_merge = first_line_int // 3
+                        V_merge = first_line_int // 3
+                        Number_of_checks_greedy_H = Number_of_checks_greedy_H * (temps_accordé // 2)
+                        Number_of_checks_greedy_V = Number_of_checks_greedy_V * (temps_accordé // 3)
+
+                elif 'e' in onlyName:
+                    if first_line_int >= 50000 :
+                        V_merge = first_line_int // 3
+                        Number_of_checks_greedy_V = Number_of_checks_greedy_V * (temps_accordé //30)
+                    elif first_line_int >= 25000:
+                        V_merge = first_line_int // 3
+                        Number_of_checks_greedy_V = Number_of_checks_greedy_V * (temps_accordé // 15)
+                    elif first_line_int >= 10000:
+                        V_merge = first_line_int // 3
+                        Number_of_checks_greedy_V = Number_of_checks_greedy_V * (temps_accordé // 6)
+                    elif first_line_int >= 5000:
+                        V_merge = first_line_int // 3
+                        Number_of_checks_greedy_V = Number_of_checks_greedy_V * (temps_accordé // 3)
+
+
+
         except ValueError:
             print("The first line is not a valid integer.")
 
-input_file = "./test/b10000-0.txt"
+    
+
+def doTheFile(input_file,output_file, timeMax):
+    global score_total
+    start_time = time.time()
+    
+    decideParameter(input_file, timeMax)
+    print("Parameters: ", H_merge, V_merge, Number_of_checks_greedy_H, Number_of_checks_greedy_V, temps_accordé, ratio_quand_faire_gloutonne_pour_V, combien_permutations_par_ligne_h_localsearch)
+    process_file(input_file, output_file)
+    print(score_total)
+    score_total =0
+    end_time = time.time()
+    elapsed_time = end_time - start_time
+    print("Elapsed time: {:02}:{:02}:{:02}".format(int(elapsed_time // 3600), int((elapsed_time % 3600) // 60), int(elapsed_time % 60)))
+
+
+
+
+input_file = "./test/d05000-0.txt"
 output_file = "res2.txt"
-start_time = time.time()
-decideParameter(input_file, 60)
-print("H_merge : ", H_merge, "V_merge: ", V_merge, "Number_of_checks_greedy_H: ", Number_of_checks_greedy_H, "Number_of_checks_greedy_V: ", Number_of_checks_greedy_V, "temps_accordé: ", temps_accordé, "ratio_quand_faire_gloutonne_pour_V: ", ratio_quand_faire_gloutonne_pour_V, "combien_permutations_par_ligne_h_localsearch: ", combien_permutations_par_ligne_h_localsearch) 
-process_file(input_file, output_file)
-# print(scoring("res2.txt"))
-print(score_total)
-end_time = time.time()
-elapsed_time = end_time - start_time
-print("Elapsed time: {:02}:{:02}:{:02}".format(int(elapsed_time // 3600), int((elapsed_time % 3600) // 60), int(elapsed_time % 60)))
+doTheFile(input_file, output_file, 60)
+
+input_file = "./test/d05000-1.txt"
+output_file = "res2.txt"
+doTheFile(input_file, output_file, 60)
+
+input_file = "./test/d05000-2.txt"
+output_file = "res2.txt"
+doTheFile(input_file, output_file, 60)
+
+input_file = "./test/d05000-3.txt"
+output_file = "res2.txt"
+doTheFile(input_file, output_file, 60)
+
+input_file = "./test/d05000-4.txt"
+output_file = "res2.txt"
+doTheFile(input_file, output_file, 60)
+
+
+
+
 
 
